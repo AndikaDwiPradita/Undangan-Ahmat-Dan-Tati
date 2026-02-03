@@ -71,15 +71,6 @@ function setupEventListeners() {
     setupBackToTop();
 }
 
-const music = document.getElementById("openBtn");
-
-  function playMusicOnce() {
-    music.play();
-    document.removeEventListener("click", playMusicOnce);
-  }
-
-  document.addEventListener("click", playMusicOnce);
-
 // ============================================
 // FORM HANDLERS
 // ============================================
