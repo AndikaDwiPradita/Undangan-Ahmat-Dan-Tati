@@ -1,0 +1,1000 @@
+/* ============================================
+   RESET & BASE STYLES
+============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fef9f5;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   HALAMAN PEMBUKA
+============================================ */
+.cover-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f9e5e8 0%, #f5d0e3 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.8s ease;
+}
+
+.cover-page.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cover-content {
+    text-align: center;
+    padding: 2rem;
+    max-width: 500px;
+}
+
+.cover-content h3 {
+    font-size: 1.2rem;
+    color: #8a6a6a;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.couple-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    color: #b76e79;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.wedding-date {
+    font-size: 1.2rem;
+    color: #8a6a6a;
+    margin-bottom: 3rem;
+}
+
+.open-invitation-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #b76e79;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(183, 110, 121, 0.3);
+    margin-bottom: 1.5rem;
+}
+
+.open-invitation-btn:hover {
+    background-color: #a55a66;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(183, 110, 121, 0.4);
+}
+
+.open-invitation-btn i {
+    margin-left: 10px;
+    font-size: 1.2rem;
+}
+
+.instruction {
+    font-size: 0.9rem;
+    color: #8a6a6a;
+    font-style: italic;
+}
+
+/* ============================================
+   KONTEN UTAMA
+============================================ */
+.main-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.main-content.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+.main-header {
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 79% 0.5rem;
+    position: relative;
+}
+
+.header-content h3 {
+    font-size: 1rem;
+    color: #8a6a6a;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.header-content h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: #b76e79;
+    margin-bottom: 0.5rem;
+}
+
+.header-content p {
+    font-size: 1.1rem;
+    color: #8a6a6a;
+}
+
+/* ============================================
+   NAVIGASI
+============================================ */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 0.8rem 0;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.navbar li {
+    margin: 0 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: #8a6a6a;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border-radius: 30px;
+}
+
+.nav-link i {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #b76e79;
+    background-color: rgba(183, 110, 121, 0.1);
+}
+
+/* ============================================
+   SECTION UMUM
+============================================ */
+.section {
+    padding: 4rem 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #b76e79;
+    margin-bottom: 0.5rem;
+}
+
+.underline {
+    width: 80px;
+    height: 3px;
+    background-color: #e8c4c4;
+    margin: 0 auto;
+}
+
+/* ============================================
+   EVENT CARDS
+============================================ */
+.event-card {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-icon {
+    font-size: 2.5rem;
+    color: #b76e79;
+    margin-bottom: 1rem;
+}
+
+.event-card h4 {
+  font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.event-time {
+    font-size: 1.2rem;
+    color: #b76e79;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.event-date,
+.event-location {
+    color: #666;
+    margin-bottom: 0.3rem;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.line {
+    width: 40%;
+    height: 1px;
+    background-color: #e8c4c4;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #e8c4c4;
+    margin: 0 15px;
+}
+
+/* ============================================
+   SECTION PASANGAN
+============================================ */
+.couple-section {
+    background-color: rgba(249, 229, 232, 0.3);
+    border-radius: 20px;
+    margin: 2rem auto;
+}
+
+.couple-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.couple-card {
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+}
+
+.flower-decoration {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.flower-decoration i {
+    color: #b76e79;
+    font-size: 1.2rem;
+}
+
+.couple-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.couple-card p {
+    color: #666;
+}
+
+.heart-icon {
+    font-size: 2.5rem;
+    color: #b76e79;
+}
+
+/* ============================================
+   COUNTDOWN TIMER
+============================================ */
+.countdown-section {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.countdown-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    min-width: 120px;
+    transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+}
+
+.countdown-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #b76e79;
+    margin-bottom: 0.5rem;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+/* ============================================
+   LOKASI
+============================================ */
+/* Invitation Section */
+.invitation-section {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8d9c5;
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: #8b4513;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.underline {
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #d4b483, transparent);
+    margin: 0 auto;
+}
+
+/* Guest List Container */
+.guest-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Guest Category */
+.guest-category {
+    background-color: #f8f3e9;
+    border-radius: 12px;
+    padding: 25px;
+    border-left: 5px solid #d4b483;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guest-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.1);
+}
+
+.category-title {
+    color: #8b4513;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8d9c5;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.category-title::before {
+    content: "•";
+    color: #d4b483;
+    font-size: 2rem;
+    margin-right: 10px;
+}
+
+/* Guest List */
+.guest-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.guest-item {
+    padding: 12px 15px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e8d9c5;
+    color: #555;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 35px;
+}
+
+.guest-item::before {
+    content: "✓";
+    color: #d4b483;
+    font-weight: bold;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.guest-item:hover {
+    background-color: #f0e6d6;
+    border-color: #d4b483;
+    transform: translateX(5px);
+    color: #333;
+}
+
+/* ============================================
+   LOKASI
+============================================ */
+.location-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 2rem;
+}
+
+.location-info,
+.map-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.location-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.location-info h3 i {
+    margin-right: 10px;
+    color: #e74c3c;
+}
+
+.address,
+.location-details,
+.save-date {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.location-details ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.location-details li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.location-details li:before {
+    content: "•";
+    color: #e74c3c;
+    position: absolute;
+    left: 0;
+}
+
+.map-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-container i.fa-map-marker-alt {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.map-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.map-container p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.btn-calendar {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    margin: 0 auto 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-calendar i {
+    margin-right: 10px;
+}
+
+.btn-calendar:hover {
+    background-color: #3367d6;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   DOA & UCAPAN
+============================================ */
+.prayer-section,
+.wishes-container {
+    background-color: rgba(249, 229, 232, 0.3);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+}
+
+.prayer-text {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e8c4c4;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #b76e79;
+}
+
+.submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #b76e79;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.submit-btn:hover {
+    background-color: #a55a66;
+}
+
+.submit-btn i {
+    margin-right: 8px;
+}
+
+.prayer-list,
+.wishes-list {
+    margin-top: 2rem;
+}
+
+.prayer-item,
+.wishes-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.prayer-item h4,
+.wishes-item h4 {
+    color: #b76e79;
+    margin-bottom: 0.5rem;
+}
+
+.prayer-item p,
+.wishes-item p {
+    color: #666;
+}
+
+.prayer-time,
+.wishes-time {
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+}
+
+/* ============================================
+   FOOTER
+============================================ */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.footer h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #f9e5e8;
+}
+
+.footer p {
+    margin-bottom: 1rem;
+    color: #ccc;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #b76e79;
+    transform: translateY(-3px);
+}
+
+.footer-note {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.footer-note i {
+    color: #ff6b6b;
+    margin: 0 5px;
+}
+
+/* ============================================
+   BACK TO TOP BUTTON
+============================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #b76e79;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background-color: #a55a66;
+}
+
+/* ============================================
+   NOTIFICATION
+============================================ */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    max-width: 350px;
+    animation: slideInRight 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+}
+
+.notification.warning {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.notification.hide {
+    animation: slideOutRight 0.3s ease forwards;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-content i {
+    font-size: 1.2rem;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 768px) {
+    .couple-name,
+    .header-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .navbar ul {
+        justify-content: space-around;
+    }
+    
+    .nav-link {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .nav-link i {
+        font-size: 1rem;
+    }
+    
+    .countdown-item {
+        min-width: 90px;
+        padding: 1rem;
+    }
+    
+    .countdown-value {
+        font-size: 2rem;
+    }
+    
+    .couple-container {
+        flex-direction: column;
+    }
+    
+    .heart-icon {
+        margin-bottom: 1rem;
+    }
+    
+    .location-container {
+        flex-direction: column;
+    }
+    
+    .notification {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+    
+    .prayer-item,
+    .wishes-item {
+        padding: 1rem;
+    }
+    
+    .invitation-section {
+        padding: 30px 20px;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .guest-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .guest-category {
+        padding: 20px;
+    }
+    
+    .category-title {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cover-content,
+    .section {
+        padding: 2rem 1rem;
+    }
+    
+    .couple-name,
+    .header-content h1 {
+        font-size: 2rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .countdown-container {
+        gap: 1rem;
+    }
+    
+    .countdown-item {
+        min-width: 70px;
+        padding: 0.8rem;
+    }
+    
+    .countdown-value {
+        font-size: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .invitation-section {
+        padding: 25px 15px;
+    }
+    
+    .guest-item {
+        padding: 10px 12px;
+        padding-left: 30px;
+        font-size: 0.95rem;
+    }
+    
+    .guest-item::before {
+        left: 10px;
+    }
+}
