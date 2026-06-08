@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Clipper - Dengan Audio | Upload & Link URL</title>
+    <title>AI Video Clipper - Upload & Link (Dengan Audio)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -13,8 +13,8 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e4e8ef 100%);
+            font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #f1f5f9;
             min-height: 100vh;
             padding: 20px;
         }
@@ -31,10 +31,7 @@
 
         .header h1 {
             font-size: 2rem;
-            background: linear-gradient(135deg, #1e3a6b, #2563eb);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #1e3a6b;
         }
 
         .mode-buttons {
@@ -47,7 +44,7 @@
         .mode-btn {
             background: white;
             border: 2px solid #cbd5e1;
-            padding: 10px 30px;
+            padding: 12px 30px;
             border-radius: 50px;
             font-weight: bold;
             font-size: 1rem;
@@ -70,7 +67,7 @@
         .card {
             background: white;
             border-radius: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
@@ -94,6 +91,7 @@
             cursor: pointer;
             margin-bottom: 20px;
             transition: 0.2s;
+            background: #fefefe;
         }
 
         .upload-area:hover {
@@ -147,39 +145,18 @@
             background: #1e3a6b;
         }
 
-        .sample-urls {
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .sample-urls p {
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 8px;
-        }
-
         .sample-item {
-            font-size: 11px;
-            background: #f1f5f9;
-            padding: 6px 10px;
-            border-radius: 8px;
-            margin-bottom: 6px;
+            font-size: 12px;
+            background: #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 12px;
+            margin-top: 10px;
             cursor: pointer;
-            word-break: break-all;
+            text-align: center;
         }
 
         .sample-item:hover {
-            background: #e2e8f0;
-        }
-
-        .warning-box {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: 15px;
-            font-size: 12px;
+            background: #cbd5e1;
         }
 
         .video-preview {
@@ -187,7 +164,7 @@
             border-radius: 16px;
             background: black;
             margin-bottom: 12px;
-            max-height: 220px;
+            max-height: 200px;
         }
 
         .video-info {
@@ -210,7 +187,6 @@
             font-size: 1rem;
             width: 100%;
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .btn-generate:disabled {
@@ -273,7 +249,6 @@
             width: 34px;
             height: 34px;
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .clip-actions button:hover {
@@ -319,13 +294,11 @@
             transition: opacity 0.3s;
             pointer-events: none;
             z-index: 1000;
-            max-width: 350px;
         }
 
         @media (max-width: 800px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
+            .dashboard { grid-template-columns: 1fr; }
+            .mode-btn { padding: 8px 20px; }
         }
     </style>
 </head>
@@ -334,64 +307,55 @@
 <div class="container">
     <div class="header">
         <h1><i class="fas fa-scissors"></i> AI Video Clipper</h1>
-        <p style="color: #64748b; margin-top: 8px;">Upload file atau masukkan link video • AI potong momen viral otomatis • <strong style="color:#2563eb">Dengan Audio!</strong></p>
+        <p>Upload file atau masukkan link video • AI potong momen viral • <span style="color:#2563eb">Dengan Audio!</span></p>
     </div>
 
     <div class="mode-buttons">
-        <button id="modeUploadBtn" class="mode-btn active"><i class="fas fa-cloud-upload-alt"></i> Upload File</button>
-        <button id="modeLinkBtn" class="mode-btn"><i class="fas fa-link"></i> Link URL</button>
+        <button id="btnUpload" class="mode-btn active"><i class="fas fa-cloud-upload-alt"></i> Upload File</button>
+        <button id="btnLink" class="mode-btn"><i class="fas fa-link"></i> Link URL</button>
     </div>
 
     <div class="dashboard">
-        <!-- Left Panel -->
+        <!-- Kiri -->
         <div class="card">
             <div class="card-header"><i class="fas fa-video"></i> Sumber Video</div>
             <div class="card-body">
-                <!-- Upload Mode -->
-                <div id="uploadModeDiv">
+                <!-- Upload Panel -->
+                <div id="panelUpload">
                     <div id="dropZone" class="upload-area">
                         <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                        <div style="font-weight: 600;">Klik atau drag & drop video</div>
-                        <div style="font-size: 12px; color: #64748b; margin-top: 6px;">MP4, WebM, MOV (Max 200MB)</div>
+                        <div><strong>Klik atau drag & drop video</strong></div>
+                        <div style="font-size: 12px; margin-top: 8px;">MP4, WebM, MOV (Max 200MB)</div>
                     </div>
                     <input type="file" id="fileInput" accept="video/*" style="display: none;">
                 </div>
 
-                <!-- Link Mode -->
-                <div id="linkModeDiv" style="display: none;">
+                <!-- Link Panel -->
+                <div id="panelLink" style="display: none;">
                     <div class="link-area">
-                        <div><i class="fas fa-globe"></i> <strong>Masukkan URL video publik</strong></div>
+                        <div><strong><i class="fas fa-globe"></i> Masukkan URL video</strong></div>
                         <div class="link-input-group">
                             <input type="text" id="urlInput" class="link-input" placeholder="https://example.com/video.mp4">
-                            <button id="loadUrlBtn" class="btn-load">Muat</button>
+                            <button id="btnLoadUrl" class="btn-load">Muat</button>
                         </div>
-                        
-                        <div class="sample-urls">
-                            <p><i class="fas fa-info-circle"></i> Contoh URL yang bisa dicoba (CORS-friendly):</p>
-                            <div class="sample-item" onclick="setSampleUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')">
-                                📹 Sample Video 1: ForBiggerBlazes.mp4
-                            </div>
-                            <div class="sample-item" onclick="setSampleUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFunflies.mp4')">
-                                📹 Sample Video 2: ForBiggerFunflies.mp4
-                            </div>
-                            <div class="sample-item" onclick="setSampleUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4')">
-                                📹 Sample Video 3: ForBiggerEscapes.mp4
-                            </div>
+                        <div class="sample-item" id="sampleUrl1">
+                            📹 Coba sample video: ForBiggerBlazes.mp4
                         </div>
-                        
-                        <div class="warning-box">
-                            <i class="fas fa-exclamation-triangle"></i> <strong>Catatan:</strong><br>
-                            Gunakan sample URL di atas untuk testing, atau upload file sendiri.
+                        <div class="sample-item" id="sampleUrl2">
+                            📹 Coba sample video: ForBiggerFunflies.mp4
                         </div>
+                        <p style="font-size: 11px; color: #64748b; margin-top: 12px;">
+                            * Jika gagal muat, gunakan mode Upload File
+                        </p>
                     </div>
                 </div>
 
-                <!-- Video Preview -->
-                <div id="previewDiv" style="display: none;">
+                <!-- Preview -->
+                <div id="previewArea" style="display: none;">
                     <video id="videoPlayer" class="video-preview" controls></video>
                     <div class="video-info">
-                        <span id="infoName"><i class="fas fa-check-circle"></i> Video siap</span>
-                        <span id="infoDuration"></span>
+                        <span id="infoText">Video siap</span>
+                        <span id="durationText"></span>
                     </div>
                 </div>
 
@@ -401,113 +365,101 @@
             </div>
         </div>
 
-        <!-- Right Panel -->
+        <!-- Kanan -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip <span id="clipCount" style="margin-left: 8px; background: #e2e8f0; padding: 2px 10px; border-radius: 30px; font-size: 12px;">0</span></div>
+            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip <span id="clipBadge" style="margin-left: 8px; background:#e2e8f0; padding:2px 10px; border-radius:30px; font-size:12px;">0</span></div>
             <div class="card-body">
-                <div id="clipsList" class="clips-list">
+                <div id="clipsContainer" class="clips-list">
                     <div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p></div>
                 </div>
-                <div id="loadingDiv" style="display: none;" class="loader">
+                <div id="loadingBox" style="display: none;" class="loader">
                     <div class="spinner"></div>
-                    <span>AI menganalisis momen terbaik...</span>
+                    <span>AI menganalisis & memotong video...</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="toast" class="toast"><i class="fas fa-bell"></i> <span id="toastMsg"></span></div>
+<div id="toast" class="toast"><i class="fas fa-info-circle"></i> <span id="toastMsg"></span></div>
 
 <script>
-    // ==================== DOM Elements ====================
-    const modeUploadBtn = document.getElementById('modeUploadBtn');
-    const modeLinkBtn = document.getElementById('modeLinkBtn');
-    const uploadModeDiv = document.getElementById('uploadModeDiv');
-    const linkModeDiv = document.getElementById('linkModeDiv');
+    // ========== DOM Elements ==========
+    const btnUpload = document.getElementById('btnUpload');
+    const btnLink = document.getElementById('btnLink');
+    const panelUpload = document.getElementById('panelUpload');
+    const panelLink = document.getElementById('panelLink');
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const urlInput = document.getElementById('urlInput');
-    const loadUrlBtn = document.getElementById('loadUrlBtn');
-    const previewDiv = document.getElementById('previewDiv');
+    const btnLoadUrl = document.getElementById('btnLoadUrl');
+    const previewArea = document.getElementById('previewArea');
     const videoPlayer = document.getElementById('videoPlayer');
-    const infoName = document.getElementById('infoName');
-    const infoDuration = document.getElementById('infoDuration');
+    const infoText = document.getElementById('infoText');
+    const durationText = document.getElementById('durationText');
     const generateBtn = document.getElementById('generateBtn');
-    const clipsList = document.getElementById('clipsList');
-    const loadingDiv = document.getElementById('loadingDiv');
-    const clipCountSpan = document.getElementById('clipCount');
+    const clipsContainer = document.getElementById('clipsContainer');
+    const loadingBox = document.getElementById('loadingBox');
+    const clipBadge = document.getElementById('clipBadge');
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
 
-    // ==================== State ====================
-    let currentMode = 'upload';
-    let videoSrc = null;
+    // ========== State ==========
+    let currentVideoUrl = null;
     let videoDuration = 0;
-    let isVideoReady = false;
+    let isVideoLoaded = false;
     let clips = [];
 
-    // ==================== Helper ====================
+    // ========== Helper ==========
     function showMessage(msg, isError = false) {
         toastMsg.innerText = msg;
         toast.style.backgroundColor = isError ? '#b91c2c' : '#1e293b';
         toast.style.opacity = '1';
-        setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+        setTimeout(() => { toast.style.opacity = '0'; }, 2500);
     }
 
-    function updateClipCount() {
-        clipCountSpan.innerText = clips.length;
+    function updateBadge() {
+        clipBadge.innerText = clips.length;
     }
 
     function clearClips() {
         clips.forEach(c => { if (c.url) URL.revokeObjectURL(c.url); });
         clips = [];
         renderClips();
-        updateClipCount();
+        updateBadge();
     }
 
     function renderClips() {
         if (clips.length === 0) {
-            clipsList.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p></div>';
+            clipsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p></div>';
             return;
         }
-        
         let html = '';
         clips.forEach((clip, idx) => {
             html += `
                 <div class="clip-item">
                     <div class="clip-thumb"><i class="fas fa-play"></i></div>
                     <div class="clip-info">
-                        <div class="clip-title">🎬 Klip AI #${idx + 1}</div>
+                        <div class="clip-title">🎬 Klip AI #${idx+1}</div>
                         <div class="clip-duration">⏱️ ${clip.duration} detik (${Math.floor(clip.start)}s - ${Math.floor(clip.end)}s)</div>
                     </div>
                     <div class="clip-actions">
-                        <button onclick="previewClip(${idx})" title="Pratinjau (dengan audio)"><i class="fas fa-eye"></i></button>
+                        <button onclick="previewClip(${idx})" title="Pratinjau"><i class="fas fa-eye"></i></button>
                         <button onclick="downloadClip(${idx})" title="Download"><i class="fas fa-download"></i></button>
                     </div>
                 </div>
             `;
         });
-        clipsList.innerHTML = html;
+        clipsContainer.innerHTML = html;
     }
 
     window.previewClip = (idx) => {
         if (clips[idx] && clips[idx].url) {
-            // Buka di tab baru dengan player yang support audio
             const win = window.open();
             win.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head><title>Preview Klip AI</title>
-                <style>
-                    body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: black; }
-                    video { max-width: 90vw; max-height: 90vh; }
-                </style>
-                </head>
-                <body>
-                    <video src="${clips[idx].url}" controls autoplay></video>
-                </body>
-                </html>
+                <html><head><title>Preview Klip</title>
+                <style>body{margin:0;display:flex;background:#000;justify-content:center;align-items:center;min-height:100vh;}video{max-width:90vw;max-height:90vh;}</style>
+                </head><body><video src="${clips[idx].url}" controls autoplay></video></body></html>
             `);
         }
     };
@@ -518,71 +470,129 @@
             a.href = clips[idx].url;
             a.download = clips[idx].filename;
             a.click();
-            showMessage(`Download klip ${idx + 1} dimulai`);
+            showMessage(`Download klip ${idx+1} dimulai`);
         }
     };
 
-    window.setSampleUrl = (url) => {
-        urlInput.value = url;
-        loadUrlFromInput();
-    };
-
-    // ==================== AI Clipping Engine (DENGAN AUDIO) ====================
-    // Menggunakan MediaRecorder dengan audio track dari video
-    async function extractClipWithAudio(videoElement, startSec, endSec) {
+    // ========== AI Clipping Engine (Dengan Audio) ==========
+    async function extractClipWithAudio(videoElem, startSec, endSec) {
         return new Promise(async (resolve, reject) => {
             try {
-                // Buat video element baru untuk capture
                 const video = document.createElement('video');
-                video.src = videoElement.src;
+                video.src = videoElem.src;
                 video.crossOrigin = "Anonymous";
                 video.preload = "auto";
                 
                 await new Promise(r => { video.addEventListener('loadedmetadata', r, { once: true }); });
-                
-                // Set current time ke start
                 video.currentTime = startSec;
                 await new Promise(r => { video.onseeked = r; });
                 
-                // Buat canvas untuk visual
                 const canvas = document.createElement('canvas');
                 canvas.width = video.videoWidth || 640;
                 canvas.height = video.videoHeight || 360;
                 const ctx = canvas.getContext('2d');
                 
-                // Dapatkan audio track dari video
-                const stream = canvas.captureStream(30);
+                const canvasStream = canvas.captureStream(30);
                 
-                // Coba dapatkan audio dari video element
-                // Buat audio context untuk menangkap audio
+                // Ambil audio dari video
+                let audioContext = null;
+                let destination = null;
                 let audioStream = null;
+                
                 try {
-                    // Gunakan audio dari video
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
                     const source = audioContext.createMediaElementSource(video);
-                    const destination = audioContext.createMediaStreamDestination();
+                    destination = audioContext.createMediaStreamDestination();
                     source.connect(destination);
                     source.connect(audioContext.destination);
                     audioStream = destination.stream;
-                    audioContext.resume();
-                    
-                    // Gabungkan video stream dengan audio stream
-                    const combinedStream = new MediaStream();
-                    // Tambahkan video track
-                    stream.getVideoTracks().forEach(track => combinedStream.addTrack(track));
-                    // Tambahkan audio track
-                    audioStream.getAudioTracks().forEach(track => combinedStream.addTrack(track));
-                    
-                    const recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
-                    const chunks = [];
-                    
-                    recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
-                    recorder.onstop = () => {
-                        audioContext.close();
-                        resolve(new Blob(chunks, { type: 'video/webm' }));
-                    };
-                    
-                    recorder.start(100);
-                    
-                    let captured = 0;
-                    c
+                    await audioContext.resume();
+                } catch(e) {
+                    console.warn('Audio capture failed:', e);
+                }
+                
+                // Gabungkan stream
+                const combinedStream = new MediaStream();
+                canvasStream.getVideoTracks().forEach(t => combinedStream.addTrack(t));
+                if (audioStream) {
+                    audioStream.getAudioTracks().forEach(t => combinedStream.addTrack(t));
+                }
+                
+                const recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
+                const chunks = [];
+                
+                recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+                recorder.onstop = () => {
+                    if (audioContext) audioContext.close();
+                    resolve(new Blob(chunks, { type: 'video/webm' }));
+                };
+                
+                recorder.start(100);
+                
+                let captured = 0;
+                const interval = setInterval(() => {
+                    if (video.currentTime >= endSec || captured >= (endSec - startSec)) {
+                        clearInterval(interval);
+                        recorder.stop();
+                        video.pause();
+                    } else {
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        captured = video.currentTime - startSec;
+                        if (video.paused) video.play();
+                    }
+                }, 40);
+                
+                video.play();
+                
+                setTimeout(() => {
+                    if (recorder.state !== 'inactive') {
+                        clearInterval(interval);
+                        recorder.stop();
+                        video.pause();
+                        if (audioContext) audioContext.close();
+                        reject(new Error('Timeout'));
+                    }
+                }, (endSec - startSec) * 1000 + 4000);
+                
+            } catch(err) {
+                reject(err);
+            }
+        });
+    }
+
+    function generateSegments(duration) {
+        if (duration < 5) return [];
+        let num = 2;
+        if (duration >= 90) num = 5;
+        else if (duration >= 50) num = 4;
+        else if (duration >= 25) num = 3;
+        num = Math.min(num, 5);
+        
+        const segments = [];
+        const used = [];
+        function overlap(s, e) {
+            return used.some(u => !(e <= u.start || s >= u.end));
+        }
+        
+        for (let i = 0; i < num; i++) {
+            let start = null, end = null;
+            let attempts = 0;
+            while (attempts < 20 && (start === null || overlap(start, end))) {
+                const r = Math.random();
+                let ratio;
+                if (r < 0.4) ratio = 0.05 + Math.random() * 0.2;
+                else if (r < 0.7) ratio = 0.4 + Math.random() * 0.25;
+                else ratio = 0.7 + Math.random() * 0.2;
+                
+                let dur = 7 + Math.random() * 14;
+                if (duration < 30) dur = Math.min(dur, duration * 0.6);
+                let s = ratio * duration;
+                s = Math.min(s, duration - 5);
+                s = Math.max(s, 0);
+                let e = s + dur;
+                if (e > duration) { e = duration; s = Math.max(0, e - dur); }
+                if (e - s >= 4 && !overlap(s, e)) {
+                    start = parseFloat(s.toFixed(2));
+                    end = parseFloat(e.toFixed(2));
+                }
+              
