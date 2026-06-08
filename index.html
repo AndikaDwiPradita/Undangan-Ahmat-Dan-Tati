@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AI Video Clipper Pro - Upload & Link Mode | Vizard AI Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f0f4fa 0%, #e8edf5 100%);
+            color: #1a2c3e;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(0,180,170,0.15), rgba(37,99,235,0.1));
+            backdrop-filter: blur(4px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0e7c72;
+            margin-bottom: 1rem;
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3a6b, #2563eb, #0f766e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: #4a627a;
+            margin-top: 0.5rem;
+        }
+
+        /* mode tabs */
+        .mode-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .mode-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #475569;
+        }
+
+        .mode-btn.active {
+            background: #1e3a6b;
+            border-color: #1e3a6b;
+            color: white;
+            box-shadow: 0 8px 16px -8px rgba(30,58,107,0.3);
+        }
+
+        .mode-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* main grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 1.8rem;
+        }
+
+        /* cards */
+        .card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(2px);
+            border-radius: 1.8rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.8);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.2rem 1.8rem;
+            background: rgba(255,255,255,0.7);
+            border-bottom: 1px solid #e9edf2;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header i {
+            color: #2563eb;
+            font-size: 1.3rem;
+        }
+
+        .card-body {
+            padding: 1.8rem;
+        }
+
+        /* upload area */
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 1.5rem;
+            background: #fefefe;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-area:hover, .dragover {
+            border-color: #0f766e;
+            background: #f0fdfa;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #2563eb;
+            margin-bottom: 0.8rem;
+        }
+
+        /* link area */
+        .link-area {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .link-input-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 1rem;
+        }
+
+        .link-input {
+            flex: 1;
+            padding: 0.9rem 1rem;
+            border-radius: 60px;
+            border: 2px solid #e2e8f0;
+            font-size: 0.9rem;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+
+        .link-input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .btn-load {
+            background: #2563eb;
+            border: none;
+            color: white;
+            padding: 0 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-load:hover {
+            background: #1e3a6b;
+            transform: scale(0.98);
+        }
+
+        .video-preview {
+            width: 100%;
+            border-radius: 1rem;
+            background: #000;
+            margin-bottom: 1rem;
+            max-height: 250px;
+            object-fit: contain;
+        }
+
+        .file-info {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            padding: 0.7rem 1rem;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(100deg, #1E3C72, #2563eb);
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.9rem;
+            border-radius: 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.3);
+        }
+
+        /* clips grid */
+        .clips-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 520px;
+            overflow-y: auto;
+        }
+
+        .clip-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border: 1px solid #eef2f8;
+            transition: all 0.2s;
+        }
+
+        .clip-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateX(4px);
+        }
+
+        .clip-thumb {
+            width: 100px;
+            height: 68px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .clip-info {
+            flex: 1;
+        }
+
+        .clip-title {
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .clip-duration {
+            font-size: 0.7rem;
+            color: #5b6e8c;
+        }
+
+        .clip-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: #f1f5f9;
+            border-radius: 50px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #334155;
+        }
+
+        .btn-icon:hover {
+            background: #e2e8f0;
+            transform: scale(1.05);
+        }
+
+        .processing-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 2rem;
+            color: #1e3a6b;
+        }
+
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-clips {
+            text-align: center;
+            color: #94a3b8;
+            padding: 2.5rem;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 880px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .mode-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            body {
+                padding: 1rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #6c86a3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="badge">
+            <i class="fas fa-robot"></i> AI Powered Clipping
+        </div>
+        <h1><i class="fas fa-scissors"></i> Video Clipper Pro</h1>
+        <p>Deteksi otomatis momen viral • Upload file atau dari Link URL • Seperti Vizard AI & Opus Clip</p>
+    </div>
+
+    <div class="mode-tabs">
+        <button id="modeUploadBtn" class="mode-btn active">
+            <i class="fas fa-cloud-upload-alt"></i> Upload File
+        </button>
+        <button id="modeLinkBtn" class="mode-btn">
+            <i class="fas fa-link"></i> Link URL
+        </button>
+    </div>
+
+    <div class="dashboard">
+        <!-- Panel Kiri -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-video"></i>
+                <span>Sumber Video</span>
+            </div>
+            <div class="card-body">
+                <!-- Mode Upload -->
+                <div id="uploadPanel">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon"><i class="fas fa-film"></i></div>
+                        <div style="font-weight: 600;">Klik atau drag & drop video</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">MP4, MOV, WebM (Max 200MB)</div>
+                    </div>
+                    <input type="file" id="fileInput" accept="video/mp4,video/mov,video/webm" style="display: none;">
+                </div>
+
+                <!-- Mode Link -->
+                <div id="linkPanel" style="display: none;">
+                    <div class="link-area">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <i class="fas fa-globe" style="color: #2563eb; font-size: 1.3rem;"></i>
+                            <span style="font-weight: 600;">Masukkan URL Video Publik</span>
+                        </div>
+                        <div class="link-input-group">
+                            <input type="text" id="urlInput" class="link-input" placeholder="https://example.com/video.mp4">
+                            <button id="loadUrlBtn" class="btn-load"><i class="fas fa-download"></i> Muat</button>
+                        </div>
+                        <p style="font-size: 0.7rem; color: #64748b; margin-top: 10px;">
+                            <i class="fas fa-info-circle"></i> Support direct link .mp4/.webm. Pastikan video dapat diakses publik.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Preview Area -->
+                <div id="previewContainer" style="display: none;">
+                    <video id="videoPreview" class="video-preview" controls></video>
+                    <div class="file-info">
+                        <span id="infoName"><i class="fas fa-file-video"></i> Video loaded</span>
+                        <span id="infoDuration"></span>
+                    </div>
+                </div>
+
+                <button id="generateBtn" class="btn-primary" disabled>
+                    <i class="fas fa-magic"></i> Generate Klip dengan AI
+                </button>
+            </div>
+        </div>
+
+        <!-- Panel Kanan -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-scissors"></i>
+                <span>Hasil Klip AI <span id="clipCountBadge" style="background:#eef2ff; padding:2px 10px; border-radius:50px; margin-left:8px; font-size:0.75rem;">0 klip</span></span>
+            </div>
+            <div class="card-body">
+                <div id="clipsList" class="clips-grid">
+                    <div class="empty-clips">
+                        <i class="fas fa-video-slash" style="font-size: 2.5rem; opacity: 0.5;"></i>
+                        <p style="margin-top: 10px;">Belum ada klip. Upload/muat video lalu Generate.</p>
+                    </div>
+                </div>
+                <div id="processingIndicator" style="display: none;" class="processing-loader">
+                    <div class="spinner"></div>
+                    <span>AI sedang menganalisis momen terbaik...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <i class="fas fa-microchip"></i> Smart clipping engine • Deteksi highlight • Download setiap klip
+    </footer>
+</div>
+
+<div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Success</span>
+</div>
+
+<script>
+    // DOM Elements
+    const modeUploadBtn = document.getElementById('modeUploadBtn');
+    const modeLinkBtn = document.getElementById('modeLinkBtn');
+    const uploadPanel = document.getElementById('uploadPanel');
+    const linkPanel = document.getElementById('linkPanel');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const urlInput = document.getElementById('urlInput');
+    const loadUrlBtn = document.getElementById('loadUrlBtn');
+    const previewContainer = document.getElementById('previewContainer');
+    const videoPreview = document.getElementById('videoPreview');
+    const infoName = document.getElementById('infoName');
+    const infoDuration = document.getElementById('infoDuration');
+    const generateBtn = document.getElementById('generateBtn');
+    const clipsListDiv = document.getElementById('clipsList');
+    const processingIndicator = document.getElementById('processingIndicator');
+    const clipCountBadge = document.getElementById('clipCountBadge');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    // State
+    let currentMode = 'upload';
+    let currentVideoURL = null;
+    let originalDuration = 0;
+    let isVideoReady = false;
+    let generatedClips = [];
+
+    // Helper functions
+    function showToast(message, isError = false) {
+        toastMsg.innerText = message;
+        toast.style.background = isError ? '#b91c2c' : '#1e293b';
+        toast.style.opacity = '1';
+        setTimeout(() => {
+            toast.style.opacity = '0';
+        }, 2800);
+    }
+
+    function updateClipBadge() {
+        clipCountBadge.innerText = `${generatedClips.length} klip`;
+    }
+
+    function clearClips() {
+        generatedClips.forEach(clip => {
+            if (clip.blobUrl) URL.revokeObjectURL(clip.blobUrl);
+        });
+        generatedClips = [];
+        renderClipsList();
+        updateClipBadge();
+    }
+
+    function renderClipsList() {
+        if (generatedClips.length === 0) {
+            clipsListDiv.innerHTML = `<div class="empty-clips"><i class="fas fa-video-slash" style="font-size: 2rem;"></i><p>Belum ada klip yang dihasilkan</p></div>`;
+            return;
+        }
+        
+        let html = '';
+        generatedClips.forEach((clip, idx) => {
+            html += `
+                <div class="clip-card">
+                    <div class="clip-thumb">
+                        <i class="fas fa-play-circle fa-2x"></i>
+                    </div>
+                    <div class="clip-info">
+                        <div class="clip-title">🎬 Klip AI #${idx + 1}</div>
+                        <div class="clip-duration"><i class="far fa-clock"></i> ${clip.duration} detik (${Math.floor(clip.start)}s - ${Math.floor(clip.end)}s)</div>
+                    </div>
+                    <div class="clip-actions">
+                        <div class="btn-icon" onclick="previewClip(${idx})" title="Pratinjau">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="btn-icon" onclick="downloadClip(${idx})" title="Download">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        clipsListDiv.innerHTML = html;
+    }
+
+    window.previewClip = (idx) => {
+        if (generatedClips[idx] && generatedClips[idx].blobUrl) {
+            window.open(generatedClips[idx].blobUrl, '_blank');
+        }
+    };
+
+    window.downloadClip = (idx) => {
+        if (generatedClips[idx] && generatedClips[idx].blobUrl) {
+            const a = document.createElement('a');
+            a.href = generatedClips[idx].blobUrl;
+            a.download = generatedClips[idx].filename;
+            a.click();
+            showToast(`Download klip ${idx + 1} dimulai`);
+        }
+    };
+
+    // AI Clipping Engine - generate segmen menarik
+    function generateSmartSegments(duration) {
+        if (!duration || duration < 4) return [];
+        
+        let numClips = 2;
+        if (duration >= 120) numClips = 6;
+        else if (duration >= 70) numClips = 5;
+        else if (duration >= 35) numClips = 4;
+        else if (duration >= 15) numClips = 3;
+        else if (duration >= 8) numClips = 2;
+        
+        numClips = Math.min(numClips, 6);
+        
+        const clips = [];
+        const used = [];
+        const minDur = 7;
+        const maxDur = 22;
+        
+        function isOverlap(s, e) {
+            return used.some(u => !(e <= u.start || s >= u.end));
+        }
+        
+        for (let i = 0; i < numClips; i++) {
+            let start = null, end = null;
+            let attempts = 0;
+            
+            while (attempts < 30 && (start === null || isOverlap(start, end))) {
+                let ratio;
+                // preferensi momen menarik: awal (0-20%), tengah (35-65%), akhir (70-90%)
+                const rand = Math.random();
+                if (rand < 0.4) ratio = 0.05 + Math.random() * 0.2;
+                else if (rand < 0.7) ratio = 0.4 + Math.random() * 0.25;
+                else ratio = 0.72 + Math.random() * 0.18;
+                
+                let clipDur = minDur + Math.random() * (maxDur - minDur);
+                if (duration < 30) clipDur = Math.min(clipDur, duration * 0.6);
+                
+                let s = ratio * duration;
+                s = Math.min(s, duration - 5);
+                s = Math.max(s, 0);
+                let e = s + clipDur;
+                if (e > duration) {
+                    e = dura
