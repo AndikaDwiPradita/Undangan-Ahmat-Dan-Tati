@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Clipper - Upload & Link (Dengan Audio)</title>
+    <title>AI Video Clipper - Upload & Link URL (WORKING)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -11,174 +11,148 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: #f1f5f9;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
             padding: 20px;
         }
-
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
         }
-
         .header {
             text-align: center;
             margin-bottom: 30px;
+            color: white;
         }
-
         .header h1 {
             font-size: 2rem;
-            color: #1e3a6b;
+            margin-bottom: 8px;
         }
-
         .mode-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-bottom: 25px;
         }
-
         .mode-btn {
-            background: white;
-            border: 2px solid #cbd5e1;
-            padding: 12px 30px;
-            border-radius: 50px;
+            background: #334155;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 60px;
             font-weight: bold;
             font-size: 1rem;
             cursor: pointer;
+            color: white;
             transition: 0.2s;
         }
-
         .mode-btn.active {
-            background: #1e3a6b;
-            border-color: #1e3a6b;
-            color: white;
+            background: #3b82f6;
         }
-
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
         }
-
         .card {
-            background: white;
+            background: #1e293b;
             border-radius: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             overflow: hidden;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.3);
         }
-
         .card-header {
             padding: 18px 22px;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            background: #334155;
+            color: white;
             font-weight: bold;
             font-size: 1.1rem;
         }
-
         .card-body {
             padding: 22px;
         }
-
         .upload-area {
-            border: 2px dashed #cbd5e1;
+            background: #0f172a;
+            border: 2px dashed #475569;
             border-radius: 20px;
             text-align: center;
             padding: 40px;
             cursor: pointer;
             margin-bottom: 20px;
-            transition: 0.2s;
-            background: #fefefe;
         }
-
         .upload-area:hover {
-            border-color: #2563eb;
-            background: #f0f9ff;
+            border-color: #3b82f6;
+            background: #1e293b;
         }
-
         .upload-icon {
             font-size: 48px;
-            color: #2563eb;
+            color: #3b82f6;
             margin-bottom: 12px;
         }
-
         .link-area {
-            background: #f8fafc;
-            border-radius: 16px;
+            background: #0f172a;
+            border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
         }
-
         .link-input-group {
             display: flex;
             gap: 10px;
-            margin-top: 12px;
+            margin: 15px 0;
         }
-
         .link-input {
             flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
+            padding: 14px 16px;
             border-radius: 40px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
             font-size: 0.9rem;
         }
-
         .link-input:focus {
             outline: none;
-            border-color: #2563eb;
+            border-color: #3b82f6;
         }
-
         .btn-load {
-            background: #2563eb;
+            background: #3b82f6;
             color: white;
             border: none;
-            padding: 0 25px;
+            padding: 0 24px;
             border-radius: 40px;
             font-weight: bold;
             cursor: pointer;
         }
-
-        .btn-load:hover {
-            background: #1e3a6b;
-        }
-
-        .sample-item {
-            font-size: 12px;
-            background: #e2e8f0;
-            padding: 8px 12px;
+        .sample-video {
+            background: #334155;
+            padding: 10px;
             border-radius: 12px;
-            margin-top: 10px;
-            cursor: pointer;
+            margin-top: 12px;
             text-align: center;
+            cursor: pointer;
+            font-size: 12px;
         }
-
-        .sample-item:hover {
-            background: #cbd5e1;
+        .sample-video:hover {
+            background: #475569;
         }
-
         .video-preview {
             width: 100%;
             border-radius: 16px;
-            background: black;
             margin-bottom: 12px;
             max-height: 200px;
+            background: black;
         }
-
         .video-info {
-            background: #f1f5f9;
-            padding: 10px 15px;
+            background: #0f172a;
+            padding: 12px;
             border-radius: 12px;
             font-size: 0.8rem;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
+            color: #94a3b8;
         }
-
         .btn-generate {
-            background: linear-gradient(135deg, #1e3a6b, #2563eb);
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             border: none;
             padding: 14px;
@@ -188,12 +162,10 @@
             width: 100%;
             cursor: pointer;
         }
-
         .btn-generate:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
         .clips-list {
             max-height: 450px;
             overflow-y: auto;
@@ -201,87 +173,73 @@
             flex-direction: column;
             gap: 12px;
         }
-
         .clip-item {
-            background: #f8fafc;
+            background: #0f172a;
             border-radius: 16px;
             padding: 12px;
             display: flex;
             align-items: center;
             gap: 15px;
-            border: 1px solid #e2e8f0;
         }
-
         .clip-thumb {
             width: 80px;
             height: 60px;
-            background: #1e293b;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
         }
-
         .clip-info {
             flex: 1;
+            color: white;
         }
-
         .clip-title {
             font-weight: bold;
             margin-bottom: 4px;
         }
-
         .clip-duration {
             font-size: 0.7rem;
-            color: #64748b;
+            color: #94a3b8;
         }
-
         .clip-actions {
             display: flex;
             gap: 8px;
         }
-
         .clip-actions button {
-            background: white;
-            border: 1px solid #cbd5e1;
+            background: #334155;
+            border: none;
             border-radius: 50%;
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             cursor: pointer;
+            color: white;
         }
-
-        .clip-actions button:hover {
-            background: #e2e8f0;
-        }
-
         .empty-state {
             text-align: center;
             padding: 50px;
-            color: #94a3b8;
+            color: #64748b;
         }
-
         .loader {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 12px;
             padding: 30px;
+            color: white;
         }
-
         .spinner {
             width: 24px;
             height: 24px;
-            border: 3px solid #e2e8f0;
-            border-top: 3px solid #2563eb;
+            border: 3px solid #475569;
+            border-top: 3px solid #3b82f6;
             border-radius: 50%;
             animation: spin 0.6s linear infinite;
         }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
         .toast {
             position: fixed;
             bottom: 20px;
@@ -292,13 +250,10 @@
             border-radius: 50px;
             opacity: 0;
             transition: opacity 0.3s;
-            pointer-events: none;
             z-index: 1000;
         }
-
         @media (max-width: 800px) {
             .dashboard { grid-template-columns: 1fr; }
-            .mode-btn { padding: 8px 20px; }
         }
     </style>
 </head>
@@ -307,50 +262,40 @@
 <div class="container">
     <div class="header">
         <h1><i class="fas fa-scissors"></i> AI Video Clipper</h1>
-        <p>Upload file atau masukkan link video • AI potong momen viral • <span style="color:#2563eb">Dengan Audio!</span></p>
+        <p>Upload file atau masukkan link URL • AI potong momen viral otomatis</p>
     </div>
 
     <div class="mode-buttons">
-        <button id="btnUpload" class="mode-btn active"><i class="fas fa-cloud-upload-alt"></i> Upload File</button>
-        <button id="btnLink" class="mode-btn"><i class="fas fa-link"></i> Link URL</button>
+        <button id="btnUploadMode" class="mode-btn active"><i class="fas fa-cloud-upload-alt"></i> Upload File</button>
+        <button id="btnLinkMode" class="mode-btn"><i class="fas fa-link"></i> Link URL</button>
     </div>
 
     <div class="dashboard">
-        <!-- Kiri -->
         <div class="card">
             <div class="card-header"><i class="fas fa-video"></i> Sumber Video</div>
             <div class="card-body">
-                <!-- Upload Panel -->
-                <div id="panelUpload">
+                <div id="uploadPanel">
                     <div id="dropZone" class="upload-area">
                         <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
                         <div><strong>Klik atau drag & drop video</strong></div>
-                        <div style="font-size: 12px; margin-top: 8px;">MP4, WebM, MOV (Max 200MB)</div>
+                        <div style="font-size: 12px; margin-top: 8px;">MP4, WebM, MOV</div>
                     </div>
                     <input type="file" id="fileInput" accept="video/*" style="display: none;">
                 </div>
 
-                <!-- Link Panel -->
-                <div id="panelLink" style="display: none;">
+                <div id="linkPanel" style="display: none;">
                     <div class="link-area">
                         <div><strong><i class="fas fa-globe"></i> Masukkan URL video</strong></div>
                         <div class="link-input-group">
                             <input type="text" id="urlInput" class="link-input" placeholder="https://example.com/video.mp4">
                             <button id="btnLoadUrl" class="btn-load">Muat</button>
                         </div>
-                        <div class="sample-item" id="sampleUrl1">
-                            📹 Coba sample video: ForBiggerBlazes.mp4
-                        </div>
-                        <div class="sample-item" id="sampleUrl2">
-                            📹 Coba sample video: ForBiggerFunflies.mp4
-                        </div>
-                        <p style="font-size: 11px; color: #64748b; margin-top: 12px;">
-                            * Jika gagal muat, gunakan mode Upload File
-                        </p>
+                        <div class="sample-video" id="sample1">🎬 Coba: Sample Video 1 (ForBiggerBlazes)</div>
+                        <div class="sample-video" id="sample2">🎬 Coba: Sample Video 2 (ForBiggerFunflies)</div>
+                        <div style="font-size: 11px; color: #64748b; margin-top: 12px;">* URL harus direct link .mp4/.webm</div>
                     </div>
                 </div>
 
-                <!-- Preview -->
                 <div id="previewArea" style="display: none;">
                     <video id="videoPlayer" class="video-preview" controls></video>
                     <div class="video-info">
@@ -365,16 +310,15 @@
             </div>
         </div>
 
-        <!-- Kanan -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip <span id="clipBadge" style="margin-left: 8px; background:#e2e8f0; padding:2px 10px; border-radius:30px; font-size:12px;">0</span></div>
+            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip <span id="clipCount" style="margin-left: 8px; background:#475569; padding:2px 10px; border-radius:30px; font-size:12px;">0</span></div>
             <div class="card-body">
                 <div id="clipsContainer" class="clips-list">
                     <div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p></div>
                 </div>
                 <div id="loadingBox" style="display: none;" class="loader">
                     <div class="spinner"></div>
-                    <span>AI menganalisis & memotong video...</span>
+                    <span>AI sedang memproses...</span>
                 </div>
             </div>
         </div>
@@ -384,11 +328,11 @@
 <div id="toast" class="toast"><i class="fas fa-info-circle"></i> <span id="toastMsg"></span></div>
 
 <script>
-    // ========== DOM Elements ==========
-    const btnUpload = document.getElementById('btnUpload');
-    const btnLink = document.getElementById('btnLink');
-    const panelUpload = document.getElementById('panelUpload');
-    const panelLink = document.getElementById('panelLink');
+    // ========== ELEMENTS ==========
+    const btnUploadMode = document.getElementById('btnUploadMode');
+    const btnLinkMode = document.getElementById('btnLinkMode');
+    const uploadPanel = document.getElementById('uploadPanel');
+    const linkPanel = document.getElementById('linkPanel');
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const urlInput = document.getElementById('urlInput');
@@ -400,42 +344,41 @@
     const generateBtn = document.getElementById('generateBtn');
     const clipsContainer = document.getElementById('clipsContainer');
     const loadingBox = document.getElementById('loadingBox');
-    const clipBadge = document.getElementById('clipBadge');
+    const clipCountSpan = document.getElementById('clipCount');
     const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toastMsg');
+    const toastMsgSpan = document.getElementById('toastMsg');
 
-    // ========== State ==========
-    let currentVideoUrl = null;
+    // ========== STATE ==========
     let videoDuration = 0;
-    let isVideoLoaded = false;
-    let clips = [];
+    let isVideoReady = false;
+    let currentClips = [];
 
-    // ========== Helper ==========
-    function showMessage(msg, isError = false) {
-        toastMsg.innerText = msg;
-        toast.style.backgroundColor = isError ? '#b91c2c' : '#1e293b';
+    // ========== FUNCTIONS ==========
+    function showToast(msg, isError = false) {
+        toastMsgSpan.innerText = msg;
+        toast.style.backgroundColor = isError ? '#dc2626' : '#1e293b';
         toast.style.opacity = '1';
         setTimeout(() => { toast.style.opacity = '0'; }, 2500);
     }
 
-    function updateBadge() {
-        clipBadge.innerText = clips.length;
+    function updateClipCount() {
+        clipCountSpan.innerText = currentClips.length;
     }
 
     function clearClips() {
-        clips.forEach(c => { if (c.url) URL.revokeObjectURL(c.url); });
-        clips = [];
+        currentClips.forEach(c => { if (c.url) URL.revokeObjectURL(c.url); });
+        currentClips = [];
         renderClips();
-        updateBadge();
+        updateClipCount();
     }
 
     function renderClips() {
-        if (clips.length === 0) {
+        if (currentClips.length === 0) {
             clipsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p></div>';
             return;
         }
         let html = '';
-        clips.forEach((clip, idx) => {
+        currentClips.forEach((clip, idx) => {
             html += `
                 <div class="clip-item">
                     <div class="clip-thumb"><i class="fas fa-play"></i></div>
@@ -444,8 +387,8 @@
                         <div class="clip-duration">⏱️ ${clip.duration} detik (${Math.floor(clip.start)}s - ${Math.floor(clip.end)}s)</div>
                     </div>
                     <div class="clip-actions">
-                        <button onclick="previewClip(${idx})" title="Pratinjau"><i class="fas fa-eye"></i></button>
-                        <button onclick="downloadClip(${idx})" title="Download"><i class="fas fa-download"></i></button>
+                        <button onclick="previewClip(${idx})"><i class="fas fa-eye"></i></button>
+                        <button onclick="downloadClip(${idx})"><i class="fas fa-download"></i></button>
                     </div>
                 </div>
             `;
@@ -454,112 +397,27 @@
     }
 
     window.previewClip = (idx) => {
-        if (clips[idx] && clips[idx].url) {
-            const win = window.open();
-            win.document.write(`
+        if (currentClips[idx] && currentClips[idx].url) {
+            const w = window.open();
+            w.document.write(`
                 <html><head><title>Preview Klip</title>
-                <style>body{margin:0;display:flex;background:#000;justify-content:center;align-items:center;min-height:100vh;}video{max-width:90vw;max-height:90vh;}</style>
-                </head><body><video src="${clips[idx].url}" controls autoplay></video></body></html>
+                <style>body{margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;}video{max-width:90vw;max-height:90vh;}</style>
+                </head><body><video src="${currentClips[idx].url}" controls autoplay></video></body></html>
             `);
         }
     };
 
     window.downloadClip = (idx) => {
-        if (clips[idx] && clips[idx].url) {
+        if (currentClips[idx] && currentClips[idx].url) {
             const a = document.createElement('a');
-            a.href = clips[idx].url;
-            a.download = clips[idx].filename;
+            a.href = currentClips[idx].url;
+            a.download = currentClips[idx].filename;
             a.click();
-            showMessage(`Download klip ${idx+1} dimulai`);
+            showToast(`Download klip ${idx+1} dimulai`);
         }
     };
 
-    // ========== AI Clipping Engine (Dengan Audio) ==========
-    async function extractClipWithAudio(videoElem, startSec, endSec) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const video = document.createElement('video');
-                video.src = videoElem.src;
-                video.crossOrigin = "Anonymous";
-                video.preload = "auto";
-                
-                await new Promise(r => { video.addEventListener('loadedmetadata', r, { once: true }); });
-                video.currentTime = startSec;
-                await new Promise(r => { video.onseeked = r; });
-                
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 640;
-                canvas.height = video.videoHeight || 360;
-                const ctx = canvas.getContext('2d');
-                
-                const canvasStream = canvas.captureStream(30);
-                
-                // Ambil audio dari video
-                let audioContext = null;
-                let destination = null;
-                let audioStream = null;
-                
-                try {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const source = audioContext.createMediaElementSource(video);
-                    destination = audioContext.createMediaStreamDestination();
-                    source.connect(destination);
-                    source.connect(audioContext.destination);
-                    audioStream = destination.stream;
-                    await audioContext.resume();
-                } catch(e) {
-                    console.warn('Audio capture failed:', e);
-                }
-                
-                // Gabungkan stream
-                const combinedStream = new MediaStream();
-                canvasStream.getVideoTracks().forEach(t => combinedStream.addTrack(t));
-                if (audioStream) {
-                    audioStream.getAudioTracks().forEach(t => combinedStream.addTrack(t));
-                }
-                
-                const recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
-                const chunks = [];
-                
-                recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
-                recorder.onstop = () => {
-                    if (audioContext) audioContext.close();
-                    resolve(new Blob(chunks, { type: 'video/webm' }));
-                };
-                
-                recorder.start(100);
-                
-                let captured = 0;
-                const interval = setInterval(() => {
-                    if (video.currentTime >= endSec || captured >= (endSec - startSec)) {
-                        clearInterval(interval);
-                        recorder.stop();
-                        video.pause();
-                    } else {
-                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                        captured = video.currentTime - startSec;
-                        if (video.paused) video.play();
-                    }
-                }, 40);
-                
-                video.play();
-                
-                setTimeout(() => {
-                    if (recorder.state !== 'inactive') {
-                        clearInterval(interval);
-                        recorder.stop();
-                        video.pause();
-                        if (audioContext) audioContext.close();
-                        reject(new Error('Timeout'));
-                    }
-                }, (endSec - startSec) * 1000 + 4000);
-                
-            } catch(err) {
-                reject(err);
-            }
-        });
-    }
-
+    // ========== AI CLIPPING ENGINE ==========
     function generateSegments(duration) {
         if (duration < 5) return [];
         let num = 2;
@@ -587,7 +445,7 @@
                 let dur = 7 + Math.random() * 14;
                 if (duration < 30) dur = Math.min(dur, duration * 0.6);
                 let s = ratio * duration;
-                s = Math.min(s, duration - 5);
+                s = Math.min(s, duration - 4);
                 s = Math.max(s, 0);
                 let e = s + dur;
                 if (e > duration) { e = duration; s = Math.max(0, e - dur); }
@@ -595,4 +453,102 @@
                     start = parseFloat(s.toFixed(2));
                     end = parseFloat(e.toFixed(2));
                 }
-              
+                attempts++;
+            }
+            if (start !== null) {
+                segments.push({ start, end, duration: (end - start).toFixed(1) });
+                used.push({ start, end });
+            }
+        }
+        if (segments.length === 0 && duration > 5) {
+            segments.push({ start: 2, end: Math.min(15, duration), duration: (Math.min(15, duration) - 2).toFixed(1) });
+        }
+        return segments.sort((a, b) => a.start - b.start);
+    }
+
+    async function extractClip(videoElem, startSec, endSec) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const video = document.createElement('video');
+                video.src = videoElem.src;
+                video.crossOrigin = "Anonymous";
+                video.preload = "auto";
+                
+                await new Promise(r => { video.addEventListener('loadedmetadata', r, { once: true }); });
+                video.currentTime = startSec;
+                await new Promise(r => { video.onseeked = r; });
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 640;
+                canvas.height = video.videoHeight || 360;
+                const ctx = canvas.getContext('2d');
+                
+                const stream = canvas.captureStream(30);
+                let audioContext = null;
+                
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = audioContext.createMediaElementSource(video);
+                    const dest = audioContext.createMediaStreamDestination();
+                    source.connect(dest);
+                    source.connect(audioContext.destination);
+                    dest.stream.getAudioTracks().forEach(t => stream.addTrack(t));
+                    await audioContext.resume();
+                } catch(e) { console.warn('Audio skip:', e); }
+                
+                const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+                const chunks = [];
+                
+                recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+                recorder.onstop = () => {
+                    if (audioContext) audioContext.close();
+                    resolve(new Blob(chunks, { type: 'video/webm' }));
+                };
+                
+                recorder.start(100);
+                let captured = 0;
+                const interval = setInterval(() => {
+                    if (video.currentTime >= endSec || captured >= (endSec - startSec)) {
+                        clearInterval(interval);
+                        recorder.stop();
+                        video.pause();
+                    } else {
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        captured = video.currentTime - startSec;
+                        if (video.paused) video.play();
+                    }
+                }, 40);
+                
+                video.play();
+                setTimeout(() => {
+                    if (recorder.state !== 'inactive') {
+                        clearInterval(interval);
+                        recorder.stop();
+                        video.pause();
+                        reject(new Error('Timeout'));
+                    }
+                }, (endSec - startSec) * 1000 + 4000);
+            } catch(err) { reject(err); }
+        });
+    }
+
+    async function processVideo() {
+        if (!isVideoReady || !videoDuration) {
+            showToast('Video belum siap', true);
+            return;
+        }
+        if (!videoPlayer.src || videoPlayer.readyState < 2) {
+            showToast('Video masih loading', true);
+            return;
+        }
+        
+        clearClips();
+        loadingBox.style.display = 'flex';
+        generateBtn.disabled = true;
+        generateBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses...';
+        
+        await new Promise(r => setTimeout(r, 200));
+        const segments = generateSegments(videoDuration);
+        
+        if (segments.length === 0) {
+            showToast
