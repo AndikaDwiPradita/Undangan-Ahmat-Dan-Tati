@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Clipper - Upload & Link URL (Fixed)</title>
+    <title>AI Video Clipper - Upload Video 1GB (Dengan Audio)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e4e8ef 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -27,38 +27,30 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
+            color: white;
         }
 
         .header h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #1e3a6b, #2563eb);
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .mode-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
+        .header p {
+            color: #94a3b8;
+            margin-top: 8px;
         }
 
-        .mode-btn {
-            background: white;
-            border: 2px solid #cbd5e1;
-            padding: 10px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .mode-btn.active {
-            background: #1e3a6b;
-            border-color: #1e3a6b;
-            color: white;
+        .badge {
+            display: inline-block;
+            background: #334155;
+            padding: 5px 15px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            color: #94a3b8;
         }
 
         .dashboard {
@@ -68,18 +60,23 @@
         }
 
         .card {
-            background: white;
+            background: #1e293b;
             border-radius: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.3);
             overflow: hidden;
         }
 
         .card-header {
             padding: 18px 22px;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            background: #334155;
+            color: white;
             font-weight: bold;
             font-size: 1.1rem;
+        }
+
+        .card-header i {
+            margin-right: 8px;
+            color: #60a5fa;
         }
 
         .card-body {
@@ -87,121 +84,61 @@
         }
 
         .upload-area {
-            border: 2px dashed #cbd5e1;
+            border: 2px dashed #475569;
             border-radius: 20px;
             text-align: center;
-            padding: 40px;
+            padding: 50px 20px;
             cursor: pointer;
             margin-bottom: 20px;
             transition: 0.2s;
+            background: #0f172a;
         }
 
         .upload-area:hover {
-            border-color: #2563eb;
-            background: #f0f9ff;
+            border-color: #60a5fa;
+            background: #1e293b;
+        }
+
+        .upload-area.dragover {
+            border-color: #60a5fa;
+            background: #1e293b;
         }
 
         .upload-icon {
-            font-size: 48px;
-            color: #2563eb;
-            margin-bottom: 12px;
+            font-size: 64px;
+            color: #60a5fa;
+            margin-bottom: 15px;
         }
 
-        .link-area {
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
+        .upload-area p {
+            color: #cbd5e1;
         }
 
-        .link-input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .link-input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 40px;
-            font-size: 0.9rem;
-        }
-
-        .link-input:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
-        .btn-load {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 0 25px;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-load:hover {
-            background: #1e3a6b;
-        }
-
-        .sample-urls {
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .sample-urls p {
-            font-size: 12px;
+        .upload-area small {
             color: #64748b;
-            margin-bottom: 8px;
-        }
-
-        .sample-item {
-            font-size: 11px;
-            background: #f1f5f9;
-            padding: 6px 10px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            cursor: pointer;
-            word-break: break-all;
-        }
-
-        .sample-item:hover {
-            background: #e2e8f0;
-        }
-
-        .warning-box {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: 15px;
-            font-size: 12px;
         }
 
         .video-preview {
             width: 100%;
             border-radius: 16px;
             background: black;
-            margin-bottom: 12px;
-            max-height: 220px;
+            margin-bottom: 15px;
+            max-height: 250px;
         }
 
         .video-info {
-            background: #f1f5f9;
-            padding: 10px 15px;
+            background: #0f172a;
+            padding: 12px 15px;
             border-radius: 12px;
             font-size: 0.8rem;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
+            color: #cbd5e1;
         }
 
         .btn-generate {
-            background: linear-gradient(135deg, #1e3a6b, #2563eb);
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             border: none;
             padding: 14px;
@@ -211,6 +148,11 @@
             width: 100%;
             cursor: pointer;
             transition: 0.2s;
+        }
+
+        .btn-generate:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59,130,246,0.4);
         }
 
         .btn-generate:disabled {
@@ -227,19 +169,19 @@
         }
 
         .clip-item {
-            background: #f8fafc;
+            background: #0f172a;
             border-radius: 16px;
             padding: 12px;
             display: flex;
             align-items: center;
             gap: 15px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #334155;
         }
 
         .clip-thumb {
             width: 80px;
             height: 60px;
-            background: #1e293b;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -254,11 +196,12 @@
         .clip-title {
             font-weight: bold;
             margin-bottom: 4px;
+            color: white;
         }
 
         .clip-duration {
             font-size: 0.7rem;
-            color: #64748b;
+            color: #94a3b8;
         }
 
         .clip-actions {
@@ -267,23 +210,24 @@
         }
 
         .clip-actions button {
-            background: white;
-            border: 1px solid #cbd5e1;
+            background: #334155;
+            border: none;
             border-radius: 50%;
             width: 34px;
             height: 34px;
             cursor: pointer;
             transition: 0.2s;
+            color: white;
         }
 
         .clip-actions button:hover {
-            background: #e2e8f0;
+            background: #475569;
         }
 
         .empty-state {
             text-align: center;
             padding: 50px;
-            color: #94a3b8;
+            color: #64748b;
         }
 
         .loader {
@@ -292,13 +236,14 @@
             align-items: center;
             gap: 12px;
             padding: 30px;
+            color: white;
         }
 
         .spinner {
             width: 24px;
             height: 24px;
-            border: 3px solid #e2e8f0;
-            border-top: 3px solid #2563eb;
+            border: 3px solid #334155;
+            border-top: 3px solid #60a5fa;
             border-radius: 50%;
             animation: spin 0.6s linear infinite;
         }
@@ -320,6 +265,25 @@
             pointer-events: none;
             z-index: 1000;
             max-width: 350px;
+            border-left: 4px solid #60a5fa;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 3px;
+            transition: width 0.3s;
         }
 
         @media (max-width: 800px) {
@@ -333,117 +297,76 @@
 
 <div class="container">
     <div class="header">
-        <h1><i class="fas fa-scissors"></i> AI Video Clipper</h1>
-        <p style="color: #64748b; margin-top: 8px;">Upload file atau masukkan link video • AI potong momen viral otomatis</p>
-    </div>
-
-    <div class="mode-buttons">
-        <button id="modeUploadBtn" class="mode-btn active"><i class="fas fa-cloud-upload-alt"></i> Upload File</button>
-        <button id="modeLinkBtn" class="mode-btn"><i class="fas fa-link"></i> Link URL</button>
+        <h1><i class="fas fa-scissors"></i> AI Video Clipper Pro</h1>
+        <p>Upload video (MP4/WebM/MOV) • AI potong momen viral otomatis • <span style="color:#60a5fa">Dengan Audio!</span></p>
+        <div class="badge"><i class="fas fa-database"></i> Maksimal ukuran file: 1GB</div>
     </div>
 
     <div class="dashboard">
         <!-- Left Panel -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-video"></i> Sumber Video</div>
+            <div class="card-header"><i class="fas fa-cloud-upload-alt"></i> Upload Video</div>
             <div class="card-body">
-                <!-- Upload Mode -->
-                <div id="uploadModeDiv">
-                    <div id="dropZone" class="upload-area">
-                        <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                        <div style="font-weight: 600;">Klik atau drag & drop video</div>
-                        <div style="font-size: 12px; color: #64748b; margin-top: 6px;">MP4, WebM, MOV (Max 200MB)</div>
-                    </div>
-                    <input type="file" id="fileInput" accept="video/*" style="display: none;">
+                <div id="dropZone" class="upload-area">
+                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <p><strong>Klik atau drag & drop video</strong></p>
+                    <small>MP4, WebM, MOV (Maksimal 1GB)</small>
                 </div>
+                <input type="file" id="fileInput" accept="video/*" style="display: none;">
 
-                <!-- Link Mode -->
-                <div id="linkModeDiv" style="display: none;">
-                    <div class="link-area">
-                        <div><i class="fas fa-globe"></i> <strong>Masukkan URL video publik</strong></div>
-                        <div class="link-input-group">
-                            <input type="text" id="urlInput" class="link-input" placeholder="https://example.com/video.mp4">
-                            <button id="loadUrlBtn" class="btn-load">Muat</button>
-                        </div>
-                        
-                        <div class="sample-urls">
-                            <p><i class="fas fa-info-circle"></i> Contoh URL yang bisa dicoba (CORS-friendly):</p>
-                            <div class="sample-item" onclick="setSampleUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')">
-                                📹 Sample Video 1: ForBiggerBlazes.mp4
-                            </div>
-                            <div class="sample-item" onclick="setSampleUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFunflies.mp4')">
-                                📹 Sample Video 2: ForBiggerFunflies.mp4
-                            </div>
-                            <div class="sample-item" onclick="setSampleUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4')">
-                                📹 Sample Video 3: ForBiggerEscapes.mp4
-                            </div>
-                        </div>
-                        
-                        <div class="warning-box">
-                            <i class="fas fa-exclamation-triangle"></i> <strong>Catatan CORS:</strong><br>
-                            Banyak video dari website lain (YouTube, Instagram, dll) TIDAK bisa dimuat karena kebijakan keamanan browser.<br>
-                            ✅ <strong>Solusi:</strong> Gunakan video contoh di atas, atau <strong>upload file sendiri</strong> (mode Upload File), atau gunakan URL direct link yang mendukung CORS.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video Preview -->
-                <div id="previewDiv" style="display: none;">
+                <div id="previewArea" style="display: none;">
                     <video id="videoPlayer" class="video-preview" controls></video>
                     <div class="video-info">
-                        <span id="infoName"><i class="fas fa-check-circle"></i> Video siap</span>
-                        <span id="infoDuration"></span>
+                        <span id="infoText"><i class="fas fa-check-circle"></i> Video siap</span>
+                        <span id="durationText"></span>
+                    </div>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
                     </div>
                 </div>
 
                 <button id="generateBtn" class="btn-generate" disabled>
-                    <i class="fas fa-magic"></i> Generate Klip AI
+                    <i class="fas fa-magic"></i> Generate Klip AI (Dengan Audio)
                 </button>
             </div>
         </div>
 
         <!-- Right Panel -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip <span id="clipCount" style="margin-left: 8px; background: #e2e8f0; padding: 2px 10px; border-radius: 30px; font-size: 12px;">0</span></div>
+            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip <span id="clipCount" style="margin-left: 8px; background: #334155; padding: 2px 10px; border-radius: 30px; font-size: 12px;">0</span></div>
             <div class="card-body">
                 <div id="clipsList" class="clips-list">
-                    <div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p></div>
+                    <div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p><small>Upload video lalu klik Generate</small></div>
                 </div>
                 <div id="loadingDiv" style="display: none;" class="loader">
                     <div class="spinner"></div>
-                    <span>AI menganalisis momen terbaik...</span>
+                    <span>AI menganalisis momen terbaik & memotong video...</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="toast" class="toast"><i class="fas fa-bell"></i> <span id="toastMsg"></span></div>
+<div id="toast" class="toast"><i class="fas fa-info-circle"></i> <span id="toastMsg"></span></div>
 
 <script>
     // ==================== DOM Elements ====================
-    const modeUploadBtn = document.getElementById('modeUploadBtn');
-    const modeLinkBtn = document.getElementById('modeLinkBtn');
-    const uploadModeDiv = document.getElementById('uploadModeDiv');
-    const linkModeDiv = document.getElementById('linkModeDiv');
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
-    const urlInput = document.getElementById('urlInput');
-    const loadUrlBtn = document.getElementById('loadUrlBtn');
-    const previewDiv = document.getElementById('previewDiv');
+    const previewArea = document.getElementById('previewArea');
     const videoPlayer = document.getElementById('videoPlayer');
-    const infoName = document.getElementById('infoName');
-    const infoDuration = document.getElementById('infoDuration');
+    const infoText = document.getElementById('infoText');
+    const durationText = document.getElementById('durationText');
     const generateBtn = document.getElementById('generateBtn');
     const clipsList = document.getElementById('clipsList');
     const loadingDiv = document.getElementById('loadingDiv');
     const clipCountSpan = document.getElementById('clipCount');
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
 
     // ==================== State ====================
-    let currentMode = 'upload';
-    let videoSrc = null;
     let videoDuration = 0;
     let isVideoReady = false;
     let clips = [];
@@ -451,7 +374,7 @@
     // ==================== Helper ====================
     function showMessage(msg, isError = false) {
         toastMsg.innerText = msg;
-        toast.style.backgroundColor = isError ? '#b91c2c' : '#1e293b';
+        toast.style.borderLeftColor = isError ? '#ef4444' : '#60a5fa';
         toast.style.opacity = '1';
         setTimeout(() => { toast.style.opacity = '0'; }, 3000);
     }
@@ -469,7 +392,7 @@
 
     function renderClips() {
         if (clips.length === 0) {
-            clipsList.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p></div>';
+            clipsList.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p><small>Upload video lalu klik Generate</small></div>';
             return;
         }
         
@@ -479,11 +402,11 @@
                 <div class="clip-item">
                     <div class="clip-thumb"><i class="fas fa-play"></i></div>
                     <div class="clip-info">
-                        <div class="clip-title">Klip AI #${idx + 1}</div>
-                        <div class="clip-duration">${clip.duration} detik (${Math.floor(clip.start)}s - ${Math.floor(clip.end)}s)</div>
+                        <div class="clip-title">🎬 Klip AI #${idx + 1}</div>
+                        <div class="clip-duration">⏱️ ${clip.duration} detik (${Math.floor(clip.start)}s - ${Math.floor(clip.end)}s)</div>
                     </div>
                     <div class="clip-actions">
-                        <button onclick="previewClip(${idx})" title="Preview"><i class="fas fa-eye"></i></button>
+                        <button onclick="previewClip(${idx})" title="Preview (Dengan Audio)"><i class="fas fa-eye"></i></button>
                         <button onclick="downloadClip(${idx})" title="Download"><i class="fas fa-download"></i></button>
                     </div>
                 </div>
@@ -494,7 +417,12 @@
 
     window.previewClip = (idx) => {
         if (clips[idx] && clips[idx].url) {
-            window.open(clips[idx].url, '_blank');
+            const win = window.open();
+            win.document.write(`
+                <html><head><title>Preview Klip AI</title>
+                <style>body{margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;}video{max-width:90vw;max-height:90vh;}</style>
+                </head><body><video src="${clips[idx].url}" controls autoplay></video></body></html>
+            `);
         }
     };
 
@@ -508,12 +436,17 @@
         }
     };
 
-    window.setSampleUrl = (url) => {
-        urlInput.value = url;
-        loadUrlFromInput();
-    };
+    function updateProgress(percent) {
+        progressFill.style.width = percent + '%';
+        if (percent >= 100) {
+            setTimeout(() => {
+                progressBar.style.display = 'none';
+                progressFill.style.width = '0%';
+            }, 500);
+        }
+    }
 
-    // ==================== AI Clipping Engine ====================
+    // ==================== AI Clipping Engine (DENGAN AUDIO) ====================
     function generateSegments(duration) {
         if (duration < 5) return [];
         
@@ -573,7 +506,7 @@
         return segments.sort((a, b) => a.start - b.start);
     }
 
-    async function extractClipSegment(videoElement, startSec, endSec) {
+    async function extractClipWithAudio(videoElement, startSec, endSec, progressCallback) {
         return new Promise(async (resolve, reject) => {
             try {
                 const video = document.createElement('video');
@@ -590,23 +523,45 @@
                 canvas.height = video.videoHeight || 360;
                 const ctx = canvas.getContext('2d');
                 
-                const stream = canvas.captureStream(30);
-                const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+                const canvasStream = canvas.captureStream(30);
+                
+                let audioContext = null;
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = audioContext.createMediaElementSource(video);
+                    const dest = audioContext.createMediaStreamDestination();
+                    source.connect(dest);
+                    source.connect(audioContext.destination);
+                    dest.stream.getAudioTracks().forEach(track => canvasStream.addTrack(track));
+                    await audioContext.resume();
+                } catch(e) {
+                    console.warn('Audio capture gagal:', e);
+                }
+                
+                const recorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm' });
                 const chunks = [];
                 
                 recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
-                recorder.onstop = () => resolve(new Blob(chunks, { type: 'video/webm' }));
+                recorder.onstop = () => {
+                    if (audioContext) audioContext.close();
+                    resolve(new Blob(chunks, { type: 'video/webm' }));
+                };
+                
                 recorder.start(100);
                 
                 let captured = 0;
+                const totalDuration = endSec - startSec;
                 const interval = setInterval(() => {
-                    if (video.currentTime >= endSec || captured >= (endSec - startSec)) {
+                    if (video.currentTime >= endSec || captured >= totalDuration) {
                         clearInterval(interval);
                         recorder.stop();
                         video.pause();
                     } else {
                         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                         captured = video.currentTime - startSec;
+                        if (progressCallback) {
+                            progressCallback((captured / totalDuration) * 100);
+                        }
                         if (video.paused) video.play();
                     }
                 }, 40);
@@ -618,9 +573,10 @@
                         clearInterval(interval);
                         recorder.stop();
                         video.pause();
+                        if (audioContext) audioContext.close();
                         reject(new Error('Timeout'));
                     }
-                }, (endSec - startSec) * 1000 + 3000);
+                }, totalDuration * 1000 + 4000);
             } catch (err) {
                 reject(err);
             }
@@ -651,16 +607,24 @@
             showMessage('Tidak dapat menghasilkan klip', true);
             loadingDiv.style.display = 'none';
             generateBtn.disabled = false;
-            generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Klip AI';
+            generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Klip AI (Dengan Audio)';
             return;
         }
         
-        showMessage(`AI mendeteksi ${segments.length} momen, memproses...`);
+        showMessage(`AI mendeteksi ${segments.length} momen, memproses klip...`);
         
         for (let i = 0; i < segments.length; i++) {
             const seg = segments[i];
             try {
-                const blob = await extractClipSegment(videoPlayer, seg.start, seg.end);
+                progressBar.style.display = 'block';
+                updateProgress(0);
+                
+                showMessage(`Memproses klip ${i+1}/${segments.length} (${seg.duration} detik)...`);
+                
+                const blob = await extractClipWithAudio(videoPlayer, seg.start, seg.end, (percent) => {
+                    updateProgress(percent);
+                });
+                
                 const url = URL.createObjectURL(blob);
                 clips.push({
                     start: seg.start,
@@ -671,30 +635,27 @@
                 });
             } catch (err) {
                 console.error(err);
+                showMessage(`Gagal proses klip ${i+1}`, true);
             }
         }
         
+        progressBar.style.display = 'none';
         renderClips();
         updateClipCount();
         loadingDiv.style.display = 'none';
         generateBtn.disabled = false;
-        generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Klip AI';
+        generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Klip AI (Dengan Audio)';
         
         if (clips.length > 0) {
-            showMessage(`✅ Berhasil! ${clips.length} klip siap download`);
+            showMessage(`✅ Berhasil! ${clips.length} klip siap download (DENGAN AUDIO!)`);
         } else {
             showMessage('Gagal membuat klip', true);
         }
     }
 
-    // ==================== Upload Mode ====================
-    function setupUploadMode() {
-        currentMode = 'upload';
-        uploadModeDiv.style.display = 'block';
-        linkModeDiv.style.display = 'none';
-        
-        if (videoSrc && videoSrc.startsWith('blob:')) URL.revokeObjectURL(videoSrc);
-        previewDiv.style.display = 'none';
+    // ==================== Upload Handler ====================
+    function setupUpload() {
+        previewArea.style.display = 'none';
         videoPlayer.src = '';
         isVideoReady = false;
         generateBtn.disabled = true;
@@ -704,19 +665,16 @@
         
         dropZone.ondragover = (e) => {
             e.preventDefault();
-            dropZone.style.borderColor = '#2563eb';
-            dropZone.style.background = '#f0f9ff';
+            dropZone.classList.add('dragover');
         };
         
         dropZone.ondragleave = () => {
-            dropZone.style.borderColor = '#cbd5e1';
-            dropZone.style.background = 'white';
+            dropZone.classList.remove('dragover');
         };
         
         dropZone.ondrop = (e) => {
             e.preventDefault();
-            dropZone.style.borderColor = '#cbd5e1';
-            dropZone.style.background = 'white';
+            dropZone.classList.remove('dragover');
             const files = e.dataTransfer.files;
             if (files.length > 0) handleFile(files[0]);
         };
@@ -731,25 +689,26 @@
             showMessage('File harus video', true);
             return;
         }
-        if (file.size > 200 * 1024 * 1024) {
-            showMessage('Maksimal 200MB', true);
+        
+        // UBAH MAKSIMAL JADI 1GB = 1024 MB
+        if (file.size > 1024 * 1024 * 1024) {
+            showMessage('Maksimal ukuran file adalah 1GB', true);
             return;
         }
         
-        if (videoSrc && videoSrc.startsWith('blob:')) URL.revokeObjectURL(videoSrc);
-        
         const url = URL.createObjectURL(file);
-        videoSrc = url;
         videoPlayer.src = url;
-        previewDiv.style.display = 'block';
-        infoName.innerHTML = `<i class="fas fa-file-video"></i> ${file.name.substring(0, 35)}`;
+        previewArea.style.display = 'block';
+        
+        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        infoText.innerHTML = `<i class="fas fa-file-video"></i> ${file.name.substring(0, 35)} (${fileSizeMB} MB)`;
         
         videoPlayer.onloadedmetadata = () => {
             videoDuration = videoPlayer.duration;
             isVideoReady = true;
             generateBtn.disabled = false;
-            infoDuration.innerHTML = `<i class="far fa-clock"></i> ${Math.floor(videoDuration)} detik`;
-            showMessage(`Video siap! Durasi ${Math.floor(videoDuration)} detik`);
+            durationText.innerHTML = `<i class="far fa-clock"></i> ${Math.floor(videoDuration / 60)} menit ${Math.floor(videoDuration % 60)} detik`;
+            showMessage(`Video siap! Durasi ${Math.floor(videoDuration)} detik | Ukuran ${fileSizeMB} MB`);
         };
         
         videoPlayer.onerror = () => {
@@ -759,95 +718,10 @@
         };
     }
     
-    // ==================== Link Mode ====================
-    function loadUrlFromInput() {
-        let url = urlInput.value.trim();
-        if (!url) {
-            showMessage('Masukkan URL', true);
-            return;
-        }
-        
-        showMessage('Memuat video dari URL...');
-        
-        if (videoSrc && videoSrc !== url) {
-            if (videoSrc.startsWith('blob:')) URL.revokeObjectURL(videoSrc);
-        }
-        
-        videoSrc = url;
-        videoPlayer.src = url;
-        previewDiv.style.display = 'block';
-        infoName.innerHTML = `<i class="fas fa-link"></i> Memuat: ${url.substring(0, 40)}...`;
-        infoDuration.innerHTML = '';
-        
-        const timeout = setTimeout(() => {
-            if (!isVideoReady) {
-                showMessage('Loading timeout - Cek URL atau koneksi', true);
-            }
-        }, 10000);
-        
-        videoPlayer.onloadedmetadata = () => {
-            clearTimeout(timeout);
-            videoDuration = videoPlayer.duration;
-            isVideoReady = true;
-            generateBtn.disabled = false;
-            infoName.innerHTML = `<i class="fas fa-check-circle"></i> Video dari URL`;
-            infoDuration.innerHTML = `<i class="far fa-clock"></i> ${Math.floor(videoDuration)} detik`;
-            showMessage(`✅ Video berhasil dimuat! Durasi ${Math.floor(videoDuration)} detik`);
-        };
-        
-        videoPlayer.onerror = (e) => {
-            clearTimeout(timeout);
-            console.error('Video error:', e);
-            let errorMsg = 'Gagal memuat URL. ';
-            if (url.includes('youtube') || url.includes('instagram') || url.includes('tiktok')) {
-                errorMsg += 'YouTube/Instagram/TikTok tidak didukung. Gunakan upload file atau sample URL di atas.';
-            } else {
-                errorMsg += 'Cek: 1) URL harus direct link .mp4/.webm, 2) Server harus mendukung CORS, 3) Coba sample URL di atas.';
-            }
-            showMessage(errorMsg, true);
-            isVideoReady = false;
-            generateBtn.disabled = true;
-            previewDiv.style.display = 'none';
-        };
-    }
-    
-    function setupLinkMode() {
-        currentMode = 'link';
-        uploadModeDiv.style.display = 'none';
-        linkModeDiv.style.display = 'block';
-        
-        if (videoSrc && videoSrc.startsWith('blob:')) URL.revokeObjectURL(videoSrc);
-        previewDiv.style.display = 'none';
-        videoPlayer.src = '';
-        isVideoReady = false;
-        generateBtn.disabled = true;
-        clearClips();
-        
-        loadUrlBtn.onclick = loadUrlFromInput;
-        
-        // Enter key support
-        urlInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') loadUrlFromInput();
-        });
-    }
-    
-    // ==================== Mode Switch ====================
-    modeUploadBtn.addEventListener('click', () => {
-        modeUploadBtn.classList.add('active');
-        modeLinkBtn.classList.remove('active');
-        setupUploadMode();
-    });
-    
-    modeLinkBtn.addEventListener('click', () => {
-        modeLinkBtn.classList.add('active');
-        modeUploadBtn.classList.remove('active');
-        setupLinkMode();
-    });
-    
     generateBtn.addEventListener('click', processVideo);
     
-    // Start
-    setupUploadMode();
+    // START
+    setupUpload();
 </script>
 </body>
 </html>
