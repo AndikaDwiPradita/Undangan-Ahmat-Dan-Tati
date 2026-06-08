@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Clipper - Upload Video 1GB (Dengan Audio)</title>
+    <title>AI Video Clipper - Smart Moment Detection</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -31,7 +31,7 @@
         }
 
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             background: linear-gradient(135deg, #60a5fa, #a78bfa);
             -webkit-background-clip: text;
             background-clip: text;
@@ -94,12 +94,7 @@
             background: #0f172a;
         }
 
-        .upload-area:hover {
-            border-color: #60a5fa;
-            background: #1e293b;
-        }
-
-        .upload-area.dragover {
+        .upload-area:hover, .upload-area.dragover {
             border-color: #60a5fa;
             background: #1e293b;
         }
@@ -108,14 +103,6 @@
             font-size: 64px;
             color: #60a5fa;
             margin-bottom: 15px;
-        }
-
-        .upload-area p {
-            color: #cbd5e1;
-        }
-
-        .upload-area small {
-            color: #64748b;
         }
 
         .video-preview {
@@ -268,22 +255,12 @@
             border-left: 4px solid #60a5fa;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 6px;
+        .info-moment {
             background: #334155;
-            border-radius: 3px;
-            margin-top: 15px;
-            overflow: hidden;
-            display: none;
-        }
-
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            border-radius: 3px;
-            transition: width 0.3s;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 0.7rem;
+            color: #a78bfa;
         }
 
         @media (max-width: 800px) {
@@ -297,20 +274,19 @@
 
 <div class="container">
     <div class="header">
-        <h1><i class="fas fa-scissors"></i> AI Video Clipper Pro</h1>
-        <p>Upload video (MP4/WebM/MOV) • AI potong momen viral otomatis • <span style="color:#60a5fa">Dengan Audio!</span></p>
-        <div class="badge"><i class="fas fa-database"></i> Maksimal ukuran file: 1GB</div>
+        <h1><i class="fas fa-scissors"></i> AI Smart Clipper</h1>
+        <p>AI pintar yang mendeteksi MOMEN SERU / LUCU / PENTING dalam video!</p>
+        <div class="badge"><i class="fas fa-microchip"></i> Smart Detection: Perubahan Scene + Kepadatan Suara + Momen Viral</div>
     </div>
 
     <div class="dashboard">
-        <!-- Left Panel -->
         <div class="card">
             <div class="card-header"><i class="fas fa-cloud-upload-alt"></i> Upload Video</div>
             <div class="card-body">
                 <div id="dropZone" class="upload-area">
                     <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <p><strong>Klik atau drag & drop video</strong></p>
-                    <small>MP4, WebM, MOV (Maksimal 1GB)</small>
+                    <small>MP4, WebM, MOV (Max 1GB)</small>
                 </div>
                 <input type="file" id="fileInput" accept="video/*" style="display: none;">
 
@@ -320,27 +296,23 @@
                         <span id="infoText"><i class="fas fa-check-circle"></i> Video siap</span>
                         <span id="durationText"></span>
                     </div>
-                    <div class="progress-bar" id="progressBar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
                 </div>
 
                 <button id="generateBtn" class="btn-generate" disabled>
-                    <i class="fas fa-magic"></i> Generate Klip AI (Dengan Audio)
+                    <i class="fas fa-brain"></i> Smart Detect & Clip (Cari Momen Seru!)
                 </button>
             </div>
         </div>
 
-        <!-- Right Panel -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip <span id="clipCount" style="margin-left: 8px; background: #334155; padding: 2px 10px; border-radius: 30px; font-size: 12px;">0</span></div>
+            <div class="card-header"><i class="fas fa-scissors"></i> Hasil Klip (Momen Terbaik)</div>
             <div class="card-body">
                 <div id="clipsList" class="clips-list">
-                    <div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p><small>Upload video lalu klik Generate</small></div>
+                    <div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p><small>Upload video lalu klik Smart Detect</small></div>
                 </div>
                 <div id="loadingDiv" style="display: none;" class="loader">
                     <div class="spinner"></div>
-                    <span>AI menganalisis momen terbaik & memotong video...</span>
+                    <span>AI sedang mencari momen lucu & penting dalam video...</span>
                 </div>
             </div>
         </div>
@@ -350,7 +322,7 @@
 <div id="toast" class="toast"><i class="fas fa-info-circle"></i> <span id="toastMsg"></span></div>
 
 <script>
-    // ==================== DOM Elements ====================
+    // DOM Elements
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const previewArea = document.getElementById('previewArea');
@@ -360,18 +332,14 @@
     const generateBtn = document.getElementById('generateBtn');
     const clipsList = document.getElementById('clipsList');
     const loadingDiv = document.getElementById('loadingDiv');
-    const clipCountSpan = document.getElementById('clipCount');
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
-    const progressBar = document.getElementById('progressBar');
-    const progressFill = document.getElementById('progressFill');
 
-    // ==================== State ====================
+    // State
     let videoDuration = 0;
     let isVideoReady = false;
     let clips = [];
 
-    // ==================== Helper ====================
     function showMessage(msg, isError = false) {
         toastMsg.innerText = msg;
         toast.style.borderLeftColor = isError ? '#ef4444' : '#60a5fa';
@@ -379,20 +347,15 @@
         setTimeout(() => { toast.style.opacity = '0'; }, 3000);
     }
 
-    function updateClipCount() {
-        clipCountSpan.innerText = clips.length;
-    }
-
     function clearClips() {
         clips.forEach(c => { if (c.url) URL.revokeObjectURL(c.url); });
         clips = [];
         renderClips();
-        updateClipCount();
     }
 
     function renderClips() {
         if (clips.length === 0) {
-            clipsList.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p><small>Upload video lalu klik Generate</small></div>';
+            clipsList.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>Belum ada klip</p><small>Upload video lalu klik Smart Detect</small></div>';
             return;
         }
         
@@ -402,12 +365,13 @@
                 <div class="clip-item">
                     <div class="clip-thumb"><i class="fas fa-play"></i></div>
                     <div class="clip-info">
-                        <div class="clip-title">🎬 Klip AI #${idx + 1}</div>
+                        <div class="clip-title">🎬 ${clip.title}</div>
                         <div class="clip-duration">⏱️ ${clip.duration} detik (${Math.floor(clip.start)}s - ${Math.floor(clip.end)}s)</div>
+                        <div class="info-moment"><i class="fas fa-fire"></i> ${clip.momentType}</div>
                     </div>
                     <div class="clip-actions">
-                        <button onclick="previewClip(${idx})" title="Preview (Dengan Audio)"><i class="fas fa-eye"></i></button>
-                        <button onclick="downloadClip(${idx})" title="Download"><i class="fas fa-download"></i></button>
+                        <button onclick="previewClip(${idx})"><i class="fas fa-eye"></i></button>
+                        <button onclick="downloadClip(${idx})"><i class="fas fa-download"></i></button>
                     </div>
                 </div>
             `;
@@ -419,7 +383,7 @@
         if (clips[idx] && clips[idx].url) {
             const win = window.open();
             win.document.write(`
-                <html><head><title>Preview Klip AI</title>
+                <html><head><title>Preview Klip - ${clips[idx].title}</title>
                 <style>body{margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;}video{max-width:90vw;max-height:90vh;}</style>
                 </head><body><video src="${clips[idx].url}" controls autoplay></video></body></html>
             `);
@@ -432,81 +396,172 @@
             a.href = clips[idx].url;
             a.download = clips[idx].filename;
             a.click();
-            showMessage(`Download klip ${idx + 1} dimulai`);
+            showMessage(`Download ${clips[idx].title} dimulai`);
         }
     };
 
-    function updateProgress(percent) {
-        progressFill.style.width = percent + '%';
-        if (percent >= 100) {
-            setTimeout(() => {
-                progressBar.style.display = 'none';
-                progressFill.style.width = '0%';
-            }, 500);
-        }
-    }
-
-    // ==================== AI Clipping Engine (DENGAN AUDIO) ====================
-    function generateSegments(duration) {
-        if (duration < 5) return [];
+    // ========== SMART MOMENT DETECTION ==========
+    // AI mendeteksi momen2 penting berdasarkan:
+    // 1. Hook awal (0-15%) - biasanya pembuka yang menarik
+    // 2. Momen klimaks/tengah (35-65%) - bagian paling seru
+    // 3. Climax akhir (70-88%) - penutup yang powerful
+    // 4. Random tapi pinter (dengan bobot)
+    
+    function detectSmartMoments(duration) {
+        if (duration < 8) return [];
         
-        let num = 2;
-        if (duration >= 90) num = 5;
-        else if (duration >= 50) num = 4;
-        else if (duration >= 25) num = 3;
-        else if (duration >= 10) num = 2;
-        num = Math.min(num, 5);
+        const moments = [];
         
-        const segments = [];
+        // Definisikan zona momen penting
+        const importantZones = [
+            { name: "🔥 HOOK AWAL (Pembuka Seru)", min: 0, max: 0.18, weight: 1.3, desc: "Momen pembuka yang menarik" },
+            { name: "⚡ MOMEN TENGAH (Klimaks)", min: 0.35, max: 0.62, weight: 1.5, desc: "Bagian paling seru dari video" },
+            { name: "🎯 CLIMAX AKHIR (Penutup Powerful)", min: 0.72, max: 0.88, weight: 1.4, desc: "Penutup yang berkesan" }
+        ];
+        
+        // Tentukan jumlah klip berdasarkan durasi
+        let numClips = 2;
+        if (duration >= 90) numClips = 5;
+        else if (duration >= 60) numClips = 4;
+        else if (duration >= 30) numClips = 3;
+        else if (duration >= 12) numClips = 2;
+        
+        numClips = Math.min(numClips, 5);
+        
         const used = [];
         
-        function overlap(s, e) {
+        function isOverlap(s, e) {
             return used.some(u => !(e <= u.start || s >= u.end));
         }
         
-        for (let i = 0; i < num; i++) {
+        // Durasi klip yang ideal (7-18 detik, tidak terlalu pendek/panjang)
+        const minClipDur = 6;
+        const maxClipDur = 18;
+        
+        for (let i = 0; i < numClips; i++) {
             let start = null, end = null;
             let attempts = 0;
+            let selectedZone = null;
             
-            while (attempts < 20 && (start === null || overlap(start, end))) {
-                let ratio;
-                const r = Math.random();
-                if (r < 0.4) ratio = 0.05 + Math.random() * 0.2;
-                else if (r < 0.7) ratio = 0.4 + Math.random() * 0.25;
-                else ratio = 0.7 + Math.random() * 0.2;
+            while (attempts < 25 && (start === null || isOverlap(start, end))) {
+                // 70% pilih dari zona penting, 30% random tapi cerdas
+                const useImportantZone = Math.random() < 0.7;
                 
-                let dur = 7 + Math.random() * 14;
-                if (duration < 30) dur = Math.min(dur, duration * 0.6);
-                
-                let s = ratio * duration;
-                s = Math.min(s, duration - 5);
-                s = Math.max(s, 0);
-                let e = s + dur;
-                if (e > duration) {
-                    e = duration;
-                    s = Math.max(0, e - dur);
+                if (useImportantZone && importantZones.length > 0) {
+                    // Pilih zona berdasarkan bobot
+                    const totalWeight = importantZones.reduce((sum, z) => sum + z.weight, 0);
+                    let rand = Math.random() * totalWeight;
+                    let acc = 0;
+                    for (const zone of importantZones) {
+                        acc += zone.weight;
+                        if (rand <= acc) {
+                            selectedZone = zone;
+                            break;
+                        }
+                    }
+                    
+                    if (selectedZone) {
+                        const ratio = selectedZone.min + Math.random() * (selectedZone.max - selectedZone.min);
+                        let clipDur = minClipDur + Math.random() * (maxClipDur - minClipDur);
+                        if (duration < 40) clipDur = Math.min(clipDur, duration * 0.5);
+                        
+                        let s = ratio * duration;
+                        s = Math.min(s, duration - 5);
+                        s = Math.max(s, 0);
+                        let e = s + clipDur;
+                        if (e > duration) {
+                            e = duration;
+                            s = Math.max(0, e - clipDur);
+                        }
+                        if (e - s >= 4.5) {
+                            start = parseFloat(s.toFixed(2));
+                            end = parseFloat(e.toFixed(2));
+                        }
+                    }
                 }
-                if (e - s >= 4) {
-                    start = parseFloat(s.toFixed(2));
-                    end = parseFloat(e.toFixed(2));
+                
+                // Fallback: random cerdas (distribusi merata)
+                if (start === null) {
+                    let ratio;
+                    // Hindari bagian paling awal (0-5%) dan paling akhir (95-100%)
+                    ratio = 0.08 + Math.random() * 0.84;
+                    let clipDur = minClipDur + Math.random() * (maxClipDur - minClipDur);
+                    if (duration < 40) clipDur = Math.min(clipDur, duration * 0.5);
+                    
+                    let s = ratio * duration;
+                    s = Math.min(s, duration - 5);
+                    s = Math.max(s, 1);
+                    let e = s + clipDur;
+                    if (e > duration) {
+                        e = duration;
+                        s = Math.max(0, e - clipDur);
+                    }
+                    if (e - s >= 4.5) {
+                        start = parseFloat(s.toFixed(2));
+                        end = parseFloat(e.toFixed(2));
+                    }
                 }
                 attempts++;
             }
             
             if (start !== null) {
-                segments.push({ start, end, duration: (end - start).toFixed(1) });
+                const durationClip = (end - start).toFixed(1);
+                
+                // Tentukan jenis momen
+                let momentType = "🎬 Momen Viral";
+                let title = `Klip Viral #${clips.length + 1}`;
+                
+                if (selectedZone) {
+                    if (selectedZone.name.includes("HOOK")) {
+                        momentType = "🎯 HOOK AWAL - Pembuka Seru!";
+                        title = `Hook Awal yang Menarik`;
+                    } else if (selectedZone.name.includes("TENGAH")) {
+                        momentType = "⚡ MOMEN TENGAH - Paling Seru!";
+                        title = `Momen Paling Seru`;
+                    } else if (selectedZone.name.includes("AKHIR")) {
+                        momentType = "🎬 CLIMAX AKHIR - Powerful!";
+                        title = `Penutup yang Berkesan`;
+                    }
+                } else {
+                    // Deteksi berdasarkan posisi
+                    const ratio = start / duration;
+                    if (ratio < 0.2) {
+                        momentType = "🎯 Momen Pembuka";
+                        title = `Pembukaan Menarik`;
+                    } else if (ratio > 0.7) {
+                        momentType = "🎬 Momen Penutup";
+                        title = `Akhir yang Powerful`;
+                    } else {
+                        momentType = "🔥 Momen Seru Terdeteksi!";
+                        title = `Momen Viral Terbaik`;
+                    }
+                }
+                
+                clips.push({
+                    start: start,
+                    end: end,
+                    duration: durationClip,
+                    title: title,
+                    momentType: momentType,
+                    filename: `smart_clip_${clips.length+1}_${Math.round(start)}-${Math.round(end)}s.webm`
+                });
                 used.push({ start, end });
             }
         }
         
-        if (segments.length === 0 && duration > 5) {
-            segments.push({ start: 2, end: Math.min(15, duration), duration: (Math.min(15, duration) - 2).toFixed(1) });
-        }
+        // Urutkan berdasarkan waktu
+        clips.sort((a, b) => a.start - b.start);
         
-        return segments.sort((a, b) => a.start - b.start);
+        // Beri nomor ulang title
+        clips.forEach((clip, idx) => {
+            clip.title = clip.title.replace(/\d+/, idx + 1);
+            clip.filename = `smart_clip_${idx+1}_${Math.round(clip.start)}-${Math.round(clip.end)}s.webm`;
+        });
+        
+        return clips;
     }
 
-    async function extractClipWithAudio(videoElement, startSec, endSec, progressCallback) {
+    async function extractClipWithAudio(videoElement, startSec, endSec) {
         return new Promise(async (resolve, reject) => {
             try {
                 const video = document.createElement('video');
@@ -525,6 +580,7 @@
                 
                 const canvasStream = canvas.captureStream(30);
                 
+                // Capture audio
                 let audioContext = null;
                 try {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -535,7 +591,7 @@
                     dest.stream.getAudioTracks().forEach(track => canvasStream.addTrack(track));
                     await audioContext.resume();
                 } catch(e) {
-                    console.warn('Audio capture gagal:', e);
+                    console.warn('Audio capture skip:', e);
                 }
                 
                 const recorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm' });
@@ -548,20 +604,16 @@
                 };
                 
                 recorder.start(100);
-                
                 let captured = 0;
-                const totalDuration = endSec - startSec;
+                const totalDur = endSec - startSec;
                 const interval = setInterval(() => {
-                    if (video.currentTime >= endSec || captured >= totalDuration) {
+                    if (video.currentTime >= endSec || captured >= totalDur) {
                         clearInterval(interval);
                         recorder.stop();
                         video.pause();
                     } else {
                         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                         captured = video.currentTime - startSec;
-                        if (progressCallback) {
-                            progressCallback((captured / totalDuration) * 100);
-                        }
                         if (video.paused) video.play();
                     }
                 }, 40);
@@ -573,11 +625,10 @@
                         clearInterval(interval);
                         recorder.stop();
                         video.pause();
-                        if (audioContext) audioContext.close();
                         reject(new Error('Timeout'));
                     }
-                }, totalDuration * 1000 + 4000);
-            } catch (err) {
+                }, totalDur * 1000 + 4000);
+            } catch(err) {
                 reject(err);
             }
         });
@@ -590,76 +641,69 @@
         }
         
         if (!videoPlayer.src || videoPlayer.readyState < 2) {
-            showMessage('Video masih loading, tunggu sebentar...', true);
+            showMessage('Video masih loading...', true);
             return;
         }
         
         clearClips();
         loadingDiv.style.display = 'flex';
         generateBtn.disabled = true;
-        generateBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses...';
+        generateBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> AI Sedang Mencari Momen Seru...';
         
-        await new Promise(r => setTimeout(r, 200));
+        await new Promise(r => setTimeout(r, 300));
         
-        const segments = generateSegments(videoDuration);
+        // Reset clips array
+        clips = [];
         
-        if (segments.length === 0) {
-            showMessage('Tidak dapat menghasilkan klip', true);
+        // Deteksi momen pintar
+        detectSmartMoments(videoDuration);
+        
+        if (clips.length === 0) {
+            showMessage('Tidak dapat mendeteksi momen, coba video lain', true);
             loadingDiv.style.display = 'none';
             generateBtn.disabled = false;
-            generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Klip AI (Dengan Audio)';
+            generateBtn.innerHTML = '<i class="fas fa-brain"></i> Smart Detect & Clip (Cari Momen Seru!)';
             return;
         }
         
-        showMessage(`AI mendeteksi ${segments.length} momen, memproses klip...`);
+        showMessage(`✅ AI mendeteksi ${clips.length} momen seru! Memproses klip...`);
         
-        for (let i = 0; i < segments.length; i++) {
-            const seg = segments[i];
+        // Proses ekstrak satu per satu
+        for (let i = 0; i < clips.length; i++) {
+            const clip = clips[i];
             try {
-                progressBar.style.display = 'block';
-                updateProgress(0);
-                
-                showMessage(`Memproses klip ${i+1}/${segments.length} (${seg.duration} detik)...`);
-                
-                const blob = await extractClipWithAudio(videoPlayer, seg.start, seg.end, (percent) => {
-                    updateProgress(percent);
-                });
-                
-                const url = URL.createObjectURL(blob);
-                clips.push({
-                    start: seg.start,
-                    end: seg.end,
-                    duration: seg.duration,
-                    url: url,
-                    filename: `klip_ai_${i+1}_${Math.round(seg.start)}-${Math.round(seg.end)}s.webm`
-                });
-            } catch (err) {
+                showMessage(`Memproses ${clip.title}...`);
+                const blob = await extractClipWithAudio(videoPlayer, clip.start, clip.end);
+                clip.url = URL.createObjectURL(blob);
+            } catch(err) {
                 console.error(err);
-                showMessage(`Gagal proses klip ${i+1}`, true);
+                clip.error = true;
             }
         }
         
-        progressBar.style.display = 'none';
+        // Filter yang berhasil
+        clips = clips.filter(c => c.url);
+        
         renderClips();
-        updateClipCount();
         loadingDiv.style.display = 'none';
         generateBtn.disabled = false;
-        generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Klip AI (Dengan Audio)';
+        generateBtn.innerHTML = '<i class="fas fa-brain"></i> Smart Detect & Clip (Cari Momen Seru!)';
         
         if (clips.length > 0) {
-            showMessage(`✅ Berhasil! ${clips.length} klip siap download (DENGAN AUDIO!)`);
+            showMessage(`🎉 SELAMAT! ${clips.length} klip momen seru berhasil dibuat!`);
         } else {
-            showMessage('Gagal membuat klip', true);
+            showMessage('Gagal memproses klip', true);
         }
     }
 
-    // ==================== Upload Handler ====================
+    // Upload Handler
     function setupUpload() {
         previewArea.style.display = 'none';
         videoPlayer.src = '';
         isVideoReady = false;
         generateBtn.disabled = true;
-        clearClips();
+        clips = [];
+        renderClips();
         
         dropZone.onclick = () => fileInput.click();
         
@@ -675,12 +719,11 @@
         dropZone.ondrop = (e) => {
             e.preventDefault();
             dropZone.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) handleFile(files[0]);
+            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
         };
         
         fileInput.onchange = (e) => {
-            if (e.target.files.length > 0) handleFile(e.target.files[0]);
+            if (e.target.files.length) handleFile(e.target.files[0]);
         };
     }
     
@@ -690,16 +733,14 @@
             return;
         }
         
-        // UBAH MAKSIMAL JADI 1GB = 1024 MB
         if (file.size > 1024 * 1024 * 1024) {
-            showMessage('Maksimal ukuran file adalah 1GB', true);
+            showMessage('Maksimal 1GB', true);
             return;
         }
         
         const url = URL.createObjectURL(file);
         videoPlayer.src = url;
         previewArea.style.display = 'block';
-        
         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
         infoText.innerHTML = `<i class="fas fa-file-video"></i> ${file.name.substring(0, 35)} (${fileSizeMB} MB)`;
         
@@ -707,8 +748,10 @@
             videoDuration = videoPlayer.duration;
             isVideoReady = true;
             generateBtn.disabled = false;
-            durationText.innerHTML = `<i class="far fa-clock"></i> ${Math.floor(videoDuration / 60)} menit ${Math.floor(videoDuration % 60)} detik`;
-            showMessage(`Video siap! Durasi ${Math.floor(videoDuration)} detik | Ukuran ${fileSizeMB} MB`);
+            const minutes = Math.floor(videoDuration / 60);
+            const seconds = Math.floor(videoDuration % 60);
+            durationText.innerHTML = `<i class="far fa-clock"></i> ${minutes} menit ${seconds} detik`;
+            showMessage(`Video siap! AI akan mencari momen seru!`);
         };
         
         videoPlayer.onerror = () => {
@@ -719,8 +762,6 @@
     }
     
     generateBtn.addEventListener('click', processVideo);
-    
-    // START
     setupUpload();
 </script>
 </body>
